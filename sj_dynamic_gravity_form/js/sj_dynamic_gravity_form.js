@@ -2,6 +2,11 @@ var gf_form_id = 15;
 
 jQuery(document).ready(function() {
     cloned_add_rider_wrapper = jQuery( ".sj_add_rider_wrapper" ).clone();
+    var cloned_cart = jQuery( "#custom_html-2" ).clone();
+
+jQuery('#custom_html-2 .custom-html-widget').attr('data-rider-cart', '1');
+jQuery('#custom_html-2 .custom-html-widget h4').text('Rider 1');
+    
 
     jQuery( "#input_"+gf_form_id+"_73" ).change(function() {
 
@@ -231,8 +236,6 @@ var cloned_bike_options_second = jQuery( '[data-rider="1"] #input_'+gf_form_id+'
 
 jQuery( '[data-rider="1"]').eq(1).find("h2.gsection_title").text('RIDER' + e);
 
-
-
 if (f == "passenger") {
     console.log("passenger clicked");
     jQuery( '[data-rider="1"]').eq(1).find("h2.gsection_title").text('Rider with Passenger' + e);
@@ -255,8 +258,17 @@ jQuery( '[data-rider="'+e+'"]').find('#field_'+gf_form_id+'_91').hide();
 jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_77').eq(1).remove();
 jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_151').eq(1).remove();
 
+clone_cart(e);
 enable_current_rider(e);
 
+}
+
+function clone_cart(e){
+console.log("clone cart running");
+cloned_cart = jQuery( "[data-rider-cart='1']" ).clone();
+jQuery( '#custom_html-2 ').append(cloned_cart);
+jQuery( "[data-rider-cart='1']").last().attr("data-rider-cart", e);
+jQuery( "[data-rider-cart='"+e+"'] h4").text("Rider " + e); 
 }
 
 function dropdown_check(e){
