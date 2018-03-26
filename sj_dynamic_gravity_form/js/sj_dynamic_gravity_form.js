@@ -28,6 +28,7 @@ jQuery(document).ready(function() {
 
             jQuery.map(response, function(obj) {
 
+// console.log(obj);
                 if(obj.id === dropdown_value) {
 
                     jQuery.each( obj.tourDates.date, function( i, tour_dates ) {
@@ -82,6 +83,8 @@ jQuery(document).ready(function() {
                     jQuery(".price-name").text(obj.price);
                     jQuery(".tour-name").text(obj.tour);
                     jQuery(".date-name").text(obj.tourDates.date[1].date);
+                    jQuery(".cart-total-price").remove( );
+                    jQuery("#custom_html-2").after( "<span class='cart-total-price' >Total Price: R " + obj.price + "</span>").hide();
 
 
 
@@ -127,21 +130,21 @@ jQuery(document).ready(function() {
 
 
 
-    jQuery( "#input_"+gf_form_id+"_77" ).change(function() {
+    // jQuery( "#input_"+gf_form_id+"_77" ).change(function() {
 
-        var updatePrice = "";
-        var bikePrice = parseInt(jQuery( "#input_"+gf_form_id+"_77" ).val());
-        var priceChange = jQuery( ".price-name" ).text();
-        priceChange = Number(priceChange.replace(/[^0-9\.-]+/g,""));
+        // var updatePrice = "";
+        // // var bikePrice = parseInt(jQuery( "#input_"+gf_form_id+"_77" ).val());
+        // var priceChange = jQuery( ".price-name" ).text();
+        // priceChange = Number(priceChange.replace(/[^0-9\.-]+/g,""));
 
-        priceChange = parseInt(priceChange);
+        // priceChange = parseInt(priceChange);
 
-        updatePrice = priceChange + bikePrice;
+        // updatePrice = priceChange + priceChange;
 
         // jQuery(".price-name").text( "R " + updatePrice);
-        jQuery("#custom_html-2").after( "<span class='cart-total-price'>Total Price: R " + updatePrice + "</span>");
+        // jQuery("#custom_html-2").after( "<span class='cart-total-price'>Total Price: R " + updatePrice + "</span>");
 
-    });
+    // });
 
 
    // });
@@ -275,6 +278,26 @@ function clone_cart(e){
     jQuery( '#custom_html-2 ').append(cloned_cart);
     jQuery( "[data-rider-cart='1']").last().attr("data-rider-cart", e);
     jQuery( "[data-rider-cart='"+e+"'] h4").text("Rider " + e); 
+    total_price_update(e);
+}
+
+
+function total_price_update(e){
+    var updatePrice = "";
+
+    console.log(jQuery( "[data-rider-cart='"+e+"']"));
+        var priceChange = jQuery( "[data-rider-cart='1'] .price-name" ).text();
+        var current_total = jQuery( ".cart-total-price" ).text();
+        
+        priceChange = Number(priceChange.replace(/[^0-9\.-]+/g,""));
+        priceChange = parseInt(priceChange);
+
+        current_total = Number(current_total.replace(/[^0-9\.-]+/g,""));
+        current_total = parseInt(current_total);
+
+        updatePrice = current_total + priceChange;
+        jQuery(".cart-total-price").text("Total Price: R " + updatePrice).show();
+       
 }
 
 function dropdown_check(e){
