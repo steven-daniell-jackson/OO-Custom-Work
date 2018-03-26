@@ -269,7 +269,7 @@ enable_current_rider(e);
 }
 
 function clone_cart(e){
-    console.log("clone cart running");
+    // console.log("clone cart running");
     cloned_cart = jQuery( "[data-rider-cart='1']" ).clone();
     jQuery( '#custom_html-2 ').append(cloned_cart);
     jQuery( "[data-rider-cart='1']").last().attr("data-rider-cart", e);
@@ -304,13 +304,16 @@ function dropdown_check(e){
     } else {
 
      if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
+
         
+
         if (!jQuery(data).find( " #field_"+gf_form_id+"_152" ).hasClass("sj_clicked")) {
-            
+
             jQuery('#sj_add_rider' ).remove();
             // console.log("add");
             jQuery(data).find( " #field_"+gf_form_id+"_152" ).append('<input type="button" id="sj_add_rider" class="gform_next_button button sj_clicked" value="Add Rider" tabindex="12" onclick="clone_rider_options(' + e + ')"> ');
             clone_cart(e);
+            update_cart_info(e,roomOccupancy,bikeSelect);
 
         }
         
@@ -318,10 +321,19 @@ function dropdown_check(e){
 
 }
 
-
 }
+
+function update_cart_info(e,roomOccupancy,bikeSelect){
+    console.log(e);
+    console.log("update_cart_info");
+    console.log(e+roomOccupancy+bikeSelect);
+    jQuery('[data-rider-cart="' + e + '"] .bike_row' ).text(bikeSelect);
+    jQuery('[data-rider-cart="' + e + '"] #room_row span' ).text(roomOccupancy);
+}
+
+
 function disable_previous_rider(e){
-    console.log("disable_previous_rider " + e);
+    // console.log("disable_previous_rider " + e);
 
     jQuery( '[data-rider="'+e+'"]').find("#input_"+gf_form_id+"_78").attr("disabled", true);
     jQuery( '[data-rider="'+e+'"]').find("#input_"+gf_form_id+"_91").attr("disabled", true);
@@ -333,7 +345,7 @@ function disable_previous_rider(e){
 }
 
 function enable_current_rider(e){
-    console.log("disable_previous_rider " + e);
+    // console.log("enable_previous_rider " + e);
 
     jQuery( '[data-rider="'+e+'"]').find("#input_"+gf_form_id+"_78").attr("disabled", false);
     jQuery( '[data-rider="'+e+'"]').find("#input_"+gf_form_id+"_91").attr("disabled", false);
