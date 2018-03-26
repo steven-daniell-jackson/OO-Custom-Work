@@ -202,6 +202,7 @@ if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
 
 
 function clone_rider_options(e){
+    total_price_update(e);
     jQuery('#sj_add_rider' ).remove();
     var newRider = e + 1;
     // console.log("clone_rider_options: " + newRider );
@@ -278,7 +279,7 @@ function clone_cart(e){
     jQuery( '#custom_html-2 ').append(cloned_cart);
     jQuery( "[data-rider-cart='1']").last().attr("data-rider-cart", e);
     jQuery( "[data-rider-cart='"+e+"'] h4").text("Rider " + e); 
-    total_price_update(e);
+    
 }
 
 
@@ -296,6 +297,24 @@ function total_price_update(e){
         current_total = parseInt(current_total);
 
         updatePrice = current_total + priceChange;
+        jQuery(".cart-total-price").text("Total Price: R " + updatePrice).show();
+       
+}
+
+function reduce_total_price_update(e){
+    var updatePrice = "";
+
+    console.log(jQuery( "[data-rider-cart='"+e+"']"));
+        var priceChange = jQuery( "[data-rider-cart='1'] .price-name" ).text();
+        var current_total = jQuery( ".cart-total-price" ).text();
+        
+        priceChange = Number(priceChange.replace(/[^0-9\.-]+/g,""));
+        priceChange = parseInt(priceChange);
+
+        current_total = Number(current_total.replace(/[^0-9\.-]+/g,""));
+        current_total = parseInt(current_total);
+
+        updatePrice = current_total - priceChange;
         jQuery(".cart-total-price").text("Total Price: R " + updatePrice).show();
        
 }
@@ -323,6 +342,7 @@ function dropdown_check(e){
     jQuery('[data-rider-cart="' + e + '"]' ).remove();
 
     if (roomOccupancy == "Please select" || bikeSelect == "Select Bike") {
+
         jQuery('[data-rider-cart="' + e + '"]' ).remove();
         jQuery('#sj_add_rider' ).remove();
     } else {
