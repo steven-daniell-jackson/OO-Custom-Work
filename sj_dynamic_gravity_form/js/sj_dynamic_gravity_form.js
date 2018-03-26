@@ -3,9 +3,10 @@ var gf_form_id = 15;
 jQuery(document).ready(function() {
     cloned_add_rider_wrapper = jQuery( ".sj_add_rider_wrapper" ).clone();
     var cloned_cart = jQuery( "#custom_html-2" ).clone();
+    
 
-jQuery('#custom_html-2 .custom-html-widget').attr('data-rider-cart', '1');
-jQuery('#custom_html-2 .custom-html-widget h4').text('Rider 1');
+    jQuery('#custom_html-2 .custom-html-widget').attr('data-rider-cart', '1');
+    jQuery('#custom_html-2 .custom-html-widget h4').text('Rider 1');
     
 
     jQuery( "#input_"+gf_form_id+"_73" ).change(function() {
@@ -110,9 +111,9 @@ jQuery('#custom_html-2 .custom-html-widget h4').text('Rider 1');
 
         if (riderType == "Add solo rider") {
           jQuery( '[data-rider="1"]').attr('data-rider-type', 'solo-rider');
-        } else {
-            jQuery( '[data-rider="1"]').attr('data-rider-type', 'rider-with-passenger');
-        }
+      } else {
+        jQuery( '[data-rider="1"]').attr('data-rider-type', 'rider-with-passenger');
+    }
         // console.log("here");
     });
 
@@ -151,30 +152,32 @@ jQuery('#custom_html-2 .custom-html-widget h4').text('Rider 1');
     var bikeSelect = jQuery( "#input_"+gf_form_id+"_77 option:selected" ).text();
 
 
-var rideType = jQuery('[data-rider="1"]').attr('data-rider-type');
+    var rideType = jQuery('[data-rider="1"]').attr('data-rider-type');
 
-if (rideType == 'solo-rider') {
+    if (rideType == 'solo-rider') {
 
- if (roomOccupancy == "Please select" || roomOccupancy == "Each single room (1 person, 1 bed)") {
+       if (roomOccupancy == "Please select" || roomOccupancy == "Each single room (1 person, 1 bed)") {
         jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_91' ).hide();
         jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_152' ).next().remove();
- } else {
-    jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_91' ).show();
-    jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_152' ).next().remove();
-}
+    } else {
+        jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_91' ).show();
+        jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_152' ).next().remove();
+    }
 
 
 }
 
 
 // end new 
-   
+
 
 if (roomOccupancy == "Please select" || bikeSelect == "Select Bike") {
+    jQuery( "#custom_html-2" ).hide();
     jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_152' ).next().remove();
 }
 
 if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
+    jQuery( "#custom_html-2" ).show();
     jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_152' ).after('<input type="button" id="sj_add_rider" class="gform_next_button button" value="Add Rider" tabindex="12" onclick="clone_rider_options('+sj_add_rider_wrapper_count+')"> ');
 
 }
@@ -184,10 +187,12 @@ if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
    jQuery( "#field_"+gf_form_id+"_62" ).click(function() {
 
 
-        jQuery( '[data-rider="1"] #field_15_91').hide();
+    jQuery( '[data-rider="1"] #field_'+gf_form_id+'_91').hide();
     jQuery( "#field_"+gf_form_id+"_62" ).hide();
 });
 
+
+   jQuery( "#custom_html-2" ).hide();
 
 }); // document ready
 
@@ -215,12 +220,12 @@ function clone_rider(e, f){
 // console.log(f);
 
 
-    sj_add_rider = e - 1;
-    var cloned_rider_wrapper = jQuery( "[data-rider='1']" ).clone();
-    disable_previous_rider(sj_add_rider);
+sj_add_rider = e - 1;
+var cloned_rider_wrapper = jQuery( "[data-rider='1']" ).clone();
+disable_previous_rider(sj_add_rider);
 
 jQuery('[rider-number="'+ e +'"]' ).eq(1).remove();
-    jQuery('[rider-number="'+ e +'"]' ).hide();
+jQuery('[rider-number="'+ e +'"]' ).hide();
     // console.log(sj_add_rider);
 
 
@@ -239,11 +244,11 @@ jQuery( '[data-rider="1"]').eq(1).find("h2.gsection_title").text('RIDER' + e);
 if (f == "passenger") {
     console.log("passenger clicked");
     jQuery( '[data-rider="1"]').eq(1).find("h2.gsection_title").text('Rider with Passenger' + e);
-   jQuery( '[data-rider="1"]').eq(1).attr('data-rider-type', "rider-with-passenger");
+    jQuery( '[data-rider="1"]').eq(1).attr('data-rider-type', "rider-with-passenger");
 } else {
     console.log("solo clicked");
     jQuery( '[data-rider="1"]').eq(1).find("h2.gsection_title").text('Solo Rider' + e);
-   jQuery( '[data-rider="1"]').eq(1).attr('data-rider-type',  "solo-rider");
+    jQuery( '[data-rider="1"]').eq(1).attr('data-rider-type',  "solo-rider");
 }
 
 jQuery( '[data-rider="1"]').eq(1).attr('data-rider', e);
@@ -258,17 +263,17 @@ jQuery( '[data-rider="'+e+'"]').find('#field_'+gf_form_id+'_91').hide();
 jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_77').eq(1).remove();
 jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_151').eq(1).remove();
 
-clone_cart(e);
+
 enable_current_rider(e);
 
 }
 
 function clone_cart(e){
-console.log("clone cart running");
-cloned_cart = jQuery( "[data-rider-cart='1']" ).clone();
-jQuery( '#custom_html-2 ').append(cloned_cart);
-jQuery( "[data-rider-cart='1']").last().attr("data-rider-cart", e);
-jQuery( "[data-rider-cart='"+e+"'] h4").text("Rider " + e); 
+    console.log("clone cart running");
+    cloned_cart = jQuery( "[data-rider-cart='1']" ).clone();
+    jQuery( '#custom_html-2 ').append(cloned_cart);
+    jQuery( "[data-rider-cart='1']").last().attr("data-rider-cart", e);
+    jQuery( "[data-rider-cart='"+e+"'] h4").text("Rider " + e); 
 }
 
 function dropdown_check(e){
@@ -279,30 +284,34 @@ function dropdown_check(e){
     var bikeSelect = jQuery( data).find( "#input_"+gf_form_id+"_77 option:selected" ).text();
     var rideType = jQuery('[data-rider="' + e + '"]').attr('data-rider-type');
 
-if (rideType == 'solo-rider') {
+    if (rideType == 'solo-rider') {
 
-if (roomOccupancy == "Please select" || roomOccupancy == "Each single room (1 person, 1 bed)") {
-        jQuery(data + ' #field_'+gf_form_id+'_91' ).hide();
-         jQuery('#sj_add_rider' ).remove();
-    } else {
-        jQuery(data + ' #field_'+gf_form_id+'_91' ).show();
-         jQuery('#sj_add_rider' ).remove();
+        if (roomOccupancy == "Please select" || roomOccupancy == "Each single room (1 person, 1 bed)") {
+            jQuery(data + ' #field_'+gf_form_id+'_91' ).hide();
+            jQuery('#sj_add_rider' ).remove();
+        } else {
+            jQuery(data + ' #field_'+gf_form_id+'_91' ).show();
+            jQuery('#sj_add_rider' ).remove();
+        }
+
     }
 
-}
-
+    jQuery('[data-rider-cart="' + e + '"]' ).remove();
 
     if (roomOccupancy == "Please select" || bikeSelect == "Select Bike") {
-        // console.log('remove')
+        jQuery('[data-rider-cart="' + e + '"]' ).remove();
         jQuery('#sj_add_rider' ).remove();
     } else {
 
-       if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
-
+     if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
+        
         if (!jQuery(data).find( " #field_"+gf_form_id+"_152" ).hasClass("sj_clicked")) {
+            
             jQuery('#sj_add_rider' ).remove();
             // console.log("add");
             jQuery(data).find( " #field_"+gf_form_id+"_152" ).append('<input type="button" id="sj_add_rider" class="gform_next_button button sj_clicked" value="Add Rider" tabindex="12" onclick="clone_rider_options(' + e + ')"> ');
+            clone_cart(e);
+
         }
         
     }
