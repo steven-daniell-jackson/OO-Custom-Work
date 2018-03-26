@@ -11,8 +11,8 @@ var cloned_bike_options_second = '';
 
     jQuery('#custom_html-2 .custom-html-widget').attr('data-rider-cart', '1');
     jQuery('#custom_html-2 .custom-html-widget h4').text('Rider 1');
-    jQuery('#field_15_60 h2').css('float', 'left');
-    jQuery('#field_15_60 ').append('<span class="sj-close" style="float:right; border-radius: 50%;padding: 4px 14px; border: 1px solid" onclick="deleteRider(1)">x</a>');
+    jQuery('#field_'+gf_form_id+'_60 h2').css('float', 'left');
+    jQuery('#field_'+gf_form_id+'_60 ').append('<span class="sj-close" style="float:right; border-radius: 50%;padding: 4px 14px; border: 1px solid" onclick="deleteRider(1)">x</a>');
 
     jQuery( "#input_"+gf_form_id+"_73" ).change(function() {
 
@@ -245,7 +245,7 @@ console.log("riderNumber: " +  riderNumber);
 
 function clone_first_rider_options(){
     var firstRider = 1;
-    jQuery( '#field_15_69' ).after(cloned_add_rider_wrapper).show();
+    jQuery( '#field_'+gf_form_id+'_69' ).after(cloned_add_rider_wrapper).show();
     jQuery("[rider-number='"+firstRider+"']" ).show();
     jQuery('[rider-number="'+ firstRider +'"]' ).find('#label_'+gf_form_id+'_62_0').attr('onClick','clone_first_rider('+ 1 +')');
     jQuery('[rider-number="'+ firstRider +'"]' ).find('#label_'+gf_form_id+'_62_1').attr('onClick','clone_first_rider('+ 1 +', "passenger")');
