@@ -202,7 +202,6 @@ if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
 
 
 function clone_rider_options(e){
-    total_price_update(e);
     jQuery('#sj_add_rider' ).remove();
     var newRider = e + 1;
     // console.log("clone_rider_options: " + newRider );
@@ -293,16 +292,13 @@ function total_price_update(e){
         priceChange = Number(priceChange.replace(/[^0-9\.-]+/g,""));
         priceChange = parseInt(priceChange);
 
-        current_total = Number(current_total.replace(/[^0-9\.-]+/g,""));
-        current_total = parseInt(current_total);
-
-        updatePrice = current_total + priceChange;
+        updatePrice = e *priceChange;
         jQuery(".cart-total-price").text("Total Price: R " + updatePrice).show();
        
 }
 
 function reduce_total_price_update(e){
-    var updatePrice = "";
+    var reduceRiders = e - 1;
 
     console.log(jQuery( "[data-rider-cart='"+e+"']"));
         var priceChange = jQuery( "[data-rider-cart='1'] .price-name" ).text();
@@ -311,10 +307,7 @@ function reduce_total_price_update(e){
         priceChange = Number(priceChange.replace(/[^0-9\.-]+/g,""));
         priceChange = parseInt(priceChange);
 
-        current_total = Number(current_total.replace(/[^0-9\.-]+/g,""));
-        current_total = parseInt(current_total);
-
-        updatePrice = current_total - priceChange;
+        updatePrice = reduceRiders *priceChange;
         jQuery(".cart-total-price").text("Total Price: R " + updatePrice).show();
        
 }
@@ -343,7 +336,9 @@ function dropdown_check(e){
 
     if (roomOccupancy == "Please select" || bikeSelect == "Select Bike") {
 
+        var reduceTotalPrice = e - 1;
         jQuery('[data-rider-cart="' + e + '"]' ).remove();
+        reduce_total_price_update(e);
         jQuery('#sj_add_rider' ).remove();
     } else {
 
@@ -358,6 +353,7 @@ function dropdown_check(e){
             jQuery(data).find( " #field_"+gf_form_id+"_152" ).append('<input type="button" id="sj_add_rider" class="gform_next_button button sj_clicked" value="Add Rider" tabindex="12" onclick="clone_rider_options(' + e + ')"> ');
             clone_cart(e);
             update_cart_info(e,roomOccupancy,bikeSelect);
+            total_price_update(e);
 
         }
         
