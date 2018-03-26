@@ -112,7 +112,6 @@ if(obj.id === dropdown_value) {
 
 });
 
-
     jQuery( "#input_"+gf_form_id+"_62" ).click(function() { 
         var riderType = jQuery( "#input_"+gf_form_id+"_62" ).find('input:checked').val();
 
@@ -132,7 +131,6 @@ if(obj.id === dropdown_value) {
 
     });
 
-
     jQuery( "div.sj_rider_wrapper[data-rider='1']" ).change(function() {
 
         sj_add_rider_wrapper_count = get_wrapper_count("sj_rider_wrapper");
@@ -151,12 +149,7 @@ if(obj.id === dropdown_value) {
             jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_91' ).show();
             jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_152' ).next().remove();
         }
-
-
     }
-
-
-// end new 
 
 
 if (roomOccupancy == "Please select" || bikeSelect == "Select Bike") {
@@ -170,7 +163,6 @@ if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
 
 }
 });
-
 
     jQuery( "#field_"+gf_form_id+"_62" ).click(function() {
 
@@ -193,13 +185,6 @@ function deleteRider(e){
 cloned_bike_options_first = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_77' ).clone();
 cloned_bike_options_second = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_151' ).clone();
     
-    console.log(cloned_bike_options_first);
-    console.log(cloned_bike_options_second);
-
-
-    console.log(cloned_first_rider_wrapper);
-    console.log('deleteRider');
-    console.log(e);
     var prev = e - 1;
     var totalRiders = 0;
 
@@ -208,7 +193,7 @@ cloned_bike_options_second = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_151
     jQuery('[data-rider-cart="'+e+'"]' ).remove();
 
     totalRiders = countRiderWrapper('sj_rider_wrapper ');
-    console.log("totalRiders " + totalRiders);
+    // console.log("totalRiders " + totalRiders);
 
     if (totalRiders == 0) {
 
@@ -218,7 +203,44 @@ cloned_bike_options_second = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_151
     }
 
     
+update_riders_on_delete();
+}
 
+
+function update_riders_on_delete(){
+    var sj_wrapper_count = 0;
+    var riderNumber = sj_wrapper_count+1;
+    var riderType = '';
+    // console.log("clicked");
+
+jQuery('#sj_add_rider' ).remove();
+
+    jQuery("div.sj_rider_wrapper ").each(function(){
+
+console.log("update_riders_on_delete: " + sj_wrapper_count);
+console.log("riderNumber: " +  riderNumber);
+
+        jQuery("div.sj_rider_wrapper").eq(sj_wrapper_count).attr('data-rider',riderNumber);
+        riderType = jQuery( '[data-rider="'+riderNumber+'"]').attr('data-rider-type');
+
+
+        jQuery( '[data-rider="'+riderNumber+'"]').find("h2.gsection_title").text(riderType +' ' + riderNumber);
+
+    jQuery( '[data-rider="'+riderNumber+'"]').find('#input_'+gf_form_id+'_77').attr('onClick','dropdown_check('+riderNumber +')').attr("data-rider-choice-first", riderNumber);
+    jQuery( '[data-rider="'+riderNumber+'"]').find('#input_'+gf_form_id+'_151').attr("data-rider-choice-second", riderNumber);
+    jQuery( '[data-rider="'+riderNumber+'"]').find('#input_'+gf_form_id+'_78').attr('onClick','dropdown_check('+riderNumber +')');
+
+    jQuery('[data-rider="'+riderNumber+'"] #sj_add_rider' ).attr('onclick', 'dropdown_check('+riderNumber +')');
+
+        sj_wrapper_count += 1; 
+        riderNumber += 1;
+        
+    });
+
+    enable_current_rider(sj_wrapper_count)
+    // console.log(sj_wrapper_count);
+
+    
 }
 
 function clone_first_rider_options(){
@@ -231,11 +253,6 @@ function clone_first_rider_options(){
 }
 
 function clone_first_rider(e, f){
-
-jQuery("[rider-number='"+e+"']" ).hide();
-console.log(e);
-console.log(f);
-
     showDelete(e);
 
     jQuery( '[rider-number="'+e+'"]').after(cloned_first_rider_wrapper).show();
@@ -291,7 +308,6 @@ function showDelete(e){
 function clone_rider_options(e){
     jQuery('#sj_add_rider' ).remove();
     var newRider = e + 1;
-    console.log()
     // console.log("clone_rider_options: " + newRider );
 
     jQuery( '[data-rider="'+ e +'"]' ).after(cloned_add_rider_wrapper);
@@ -375,7 +391,7 @@ function clone_cart(e){
 function total_price_update(e){
     var updatePrice = "";
 
-    console.log(jQuery( "[data-rider-cart='"+e+"']"));
+    // console.log(jQuery( "[data-rider-cart='"+e+"']"));
     var priceChange = jQuery( "[data-rider-cart='1'] .price-name" ).text();
     var current_total = jQuery( ".cart-total-price" ).text();
 
@@ -390,7 +406,7 @@ function total_price_update(e){
 function reduce_total_price_update(e){
     var reduceRiders = e - 1;
 
-    console.log(jQuery( "[data-rider-cart='"+e+"']"));
+    // console.log(jQuery( "[data-rider-cart='"+e+"']"));
     var priceChange = jQuery( "[data-rider-cart='1'] .price-name" ).text();
     var current_total = jQuery( ".cart-total-price" ).text();
 
@@ -496,6 +512,9 @@ function get_wrapper_count(e){
     // console.log(sj_wrapper_count);
     return sj_wrapper_count;
 }
+
+
+
 
 console.log('SJ - Dynamic Gravity Form JS Active');
 
