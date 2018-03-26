@@ -138,7 +138,8 @@ jQuery(document).ready(function() {
 
         updatePrice = priceChange + bikePrice;
 
-        jQuery(".price-name").text( "R " + updatePrice);
+        // jQuery(".price-name").text( "R " + updatePrice);
+        jQuery("#custom_html-2").after( "<span class='cart-total-price'>Total Price: R " + updatePrice + "</span>");
 
     });
 
