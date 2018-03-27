@@ -88,7 +88,7 @@ if(obj.id === dropdown_value) {
     });
 
 
-    jQuery(".price-name").text(obj.price);
+    jQuery("#field_"+gf_form_id+"_73").attr('tour-price',obj.price);
     jQuery(".tour-name").text(obj.tour);
     jQuery(".date-name").text(obj.tourDates.date[1].date);
     jQuery(".cart-total-price").remove( );
@@ -232,7 +232,7 @@ function total_price_update(e){
     var updatePrice = "";
 
     // console.log(jQuery( "[data-rider-cart='"+e+"']"));
-    var priceChange = jQuery( "[data-rider-cart='1'] .price-name" ).text();
+    var priceChange = jQuery("#field_"+gf_form_id+"_73").attr('tour-price');
     // var priceChange = jQuery( ".cart-total-price" ).text();
 
     priceChange = Number(priceChange.replace(/[^0-9\.-]+/g,""));
@@ -312,7 +312,8 @@ function update_riders_on_delete(){
     jQuery('#sj_add_rider' ).attr('onclick', 'clone_rider_options('+sj_wrapper_count+')')
     // jQuery('#sj_rider_wrapper ' ).eq(riderNumber).remove();
     // jQuery('#sj_rider_wrapper ' ).eq(sj_wrapper_count).remove();
-    reduce_total_price_update(riderNumber);
+    clone_cart();
+    // reduce_total_price_update(riderNumber);
     enable_current_rider(sj_wrapper_count);
     // console.log(sj_wrapper_count);
 
