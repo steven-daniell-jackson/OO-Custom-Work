@@ -1,11 +1,18 @@
 var gf_form_id = 15;
 var cloned_cart = '';
+var cloned_rider_details_wrapper = '';
 jQuery(document).ready(function() {
     cloned_add_rider_wrapper = jQuery( ".sj_add_rider_wrapper" ).clone();
+    cloned_rider_details_wrapper = jQuery( ".sj_rider_details_wrapper " ).clone();
     cloned_first_rider_wrapper = "";
     
     var cloned_bike_options_first = '';
     var cloned_bike_options_second = '';
+
+    jQuery( ".sj_rider_details_wrapper " ).hide();
+    jQuery( "#field_"+gf_form_id+"_40" ).hide();
+    jQuery('#gform_wrapper_15 .gform_footer #gform_submit_button_15').hide();
+    jQuery('.cart-total-price').hide()
     
 
     jQuery('#custom_html-2 .custom-html-widget').attr('data-rider-cart', '1');
@@ -18,7 +25,7 @@ jQuery(document).ready(function() {
     jQuery('#field_'+gf_form_id+'_60 ').append('<span class="sj-close" style="float:right; border-radius: 50%;padding: 4px 14px; border: 1px solid" onclick="deleteRider(1)">x</a>');
 
     jQuery( "#input_"+gf_form_id+"_73" ).change(function() {
-
+        jQuery(".cart-total-price").hide( );
         jQuery("#input_"+gf_form_id+"_150").empty();
         jQuery('#input_'+gf_form_id+'_77').empty().append(jQuery('<option>', { 
             value: "Select Bike",
@@ -91,8 +98,8 @@ if(obj.id === dropdown_value) {
     jQuery("#field_"+gf_form_id+"_73").attr('tour-price',obj.price);
     jQuery(".tour-name").text(obj.tour);
     jQuery(".date-name").text(obj.tourDates.date[1].date);
-    jQuery(".cart-total-price").remove( );
-    jQuery("#custom_html-2").after( "<span class='cart-total-price' >Total Price: R " + obj.price + "</span>").hide();
+    jQuery(".cart-total-price").hide( );
+    jQuery("#custom_html-2").after( "<span class='cart-total-price' ></span>");
 
 
 
@@ -116,6 +123,8 @@ if(obj.id === dropdown_value) {
 });
 
     jQuery( "#input_"+gf_form_id+"_62" ).click(function() { 
+
+
         var riderType = jQuery( "#input_"+gf_form_id+"_62" ).find('input:checked').val();
 
         if (riderType == "Add solo rider") {
@@ -123,13 +132,11 @@ if(obj.id === dropdown_value) {
       } else {
         jQuery( '[data-rider="1"]').attr('data-rider-type', 'rider-with-passenger');
     }
-        // console.log("here");
-    });
+});
 
     jQuery( "#input_"+gf_form_id+"_150" ).change(function() {
 
         var dateChange = jQuery( "#input_"+gf_form_id+"_150" ).val();
-        // console.log(dateChange);
         jQuery(".date-name").text(dateChange);
 
     });
@@ -145,7 +152,7 @@ if(obj.id === dropdown_value) {
 
         if (rideType == 'solo-rider') {
 
-         if (roomOccupancy == "Please select" || roomOccupancy == "Each single room (1 person, 1 bed)") {
+           if (roomOccupancy == "Please select" || roomOccupancy == "Each single room (1 person, 1 bed)") {
             jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_91' ).hide();
             jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_152' ).next().remove();
         } else {
@@ -162,7 +169,7 @@ if(obj.id === dropdown_value) {
 
     if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
         clone_cart()
-        jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_152' ).after('<input type="button" id="sj_add_rider" class="gform_next_button button" value="Add Rider" tabindex="12" onclick="clone_rider_options('+sj_add_rider_wrapper_count+')"> ');
+        clone_rider_options(sj_add_rider_wrapper_count);
 
     }
 });
@@ -177,29 +184,36 @@ if(obj.id === dropdown_value) {
 
     jQuery( "#custom_html-2" ).hide();
 
-
-   // jQuery('.sj-close ').hide();
 }); // document ready
 
 
+function add_rider_details() {
+    
+    jQuery('#gform_wrapper_'+gf_form_id+' .gform_footer').append("<span>add_rider_details()</span>");
+    jQuery('.sj_rider_wrapper ').hide();
+    jQuery('.sj_add_rider_wrapper ').hide();
+    jQuery('#field_'+gf_form_id+'_69 ').hide();
+    jQuery( "#field_"+gf_form_id+"_40" ).show();
+    jQuery('#field_'+gf_form_id+'_40').after(cloned_rider_details_wrapper).show();
+
+    
+}
+
+
 function clone_cart(e){
-    // console.log(cloned_cart);
-// var cloned_cart = jQuery( "#custom_html-2 .custom-html-widget" ).clone();
-jQuery( '#custom_html-2 ').empty();
-    // jQuery( '#custom_html-2 ').append(cloned_cart).show();
+    
+    jQuery( '#custom_html-2 ').empty();
     var count = 0;
     var riderNumber = count + 1;
 
-var tour = jQuery("#input_15_73 :selected").text();
-var tourDate = jQuery("#input_15_150 :selected").text();
+    var tour = jQuery("#input_"+gf_form_id+"_73 :selected").text();
+    var tourDate = jQuery("#input_"+gf_form_id+"_150 :selected").text();
 
 
     jQuery("[data-rider]").each(function(){
 
-var bike = jQuery(this).find('#input_15_77 :selected').text();
-var room = jQuery(this).find('#input_15_78 :selected').text();
-console.log(bike);
-// var room = jQuery("#input_15_150 :selected").text();
+        var bike = jQuery(this).find('#input_'+gf_form_id+'_77 :selected').text();
+        var room = jQuery(this).find('#input_'+gf_form_id+'_78 :selected').text();
 
 
         console.log('clone_cart: ' + count);
@@ -217,23 +231,17 @@ console.log(bike);
         riderNumber += 1;
     });
 
-    console.log('total clone_cart: ' + count);
-
-total_price_update(count);
-
-    // jQuery( "[data-rider-cart='1']").last().attr("data-rider-cart", e);
-    // jQuery( "[data-rider-cart='"+e+"'] h4").text("Rider " + e); 
-
-    
+    total_price_update(count);
+    jQuery('.sj_next').remove();
+    jQuery('#gform_wrapper_15 .gform_footer').append('<a class="button sj_next" onclick="add_rider_details()">next</a>');
 }
+
+
 
 
 function total_price_update(e){
     var updatePrice = "";
-
-    // console.log(jQuery( "[data-rider-cart='"+e+"']"));
     var priceChange = jQuery("#field_"+gf_form_id+"_73").attr('tour-price');
-    // var priceChange = jQuery( ".cart-total-price" ).text();
 
     priceChange = Number(priceChange.replace(/[^0-9\.-]+/g,""));
     priceChange = parseInt(priceChange);
@@ -259,18 +267,16 @@ function deleteRider(e){
     jQuery('[data-rider-cart="'+e+'"]' ).remove();
 
     totalRiders = countRiderWrapper('sj_rider_wrapper ');
-    // console.log("totalRiders " + totalRiders);
 
     if (totalRiders == 0) {
 
         clone_first_rider_options();
     } else {
-        jQuery('[data-rider="'+prev+'"]').find( " #field_"+gf_form_id+"_152" ).append('<input type="button" id="sj_add_rider" class="gform_next_button button" value="Add Rider" tabindex="12" onclick="clone_rider_options(' + prev + ')"> ');
-    }
+     clone_rider_options(prev);
+ }
 
-    // jQuery('.sj_add_rider_wrapper' ).remove();
-    update_riders_on_delete();
-    clone_cart();
+ update_riders_on_delete();
+ clone_cart();
 }
 
 
@@ -278,31 +284,18 @@ function update_riders_on_delete(){
     var sj_wrapper_count = 0;
     var riderNumber = sj_wrapper_count+1;
     var riderType = '';
-    // console.log("clicked");
-
-    
 
     jQuery("div.sj_rider_wrapper ").each(function(){
-
-        // console.log("update_riders_on_delete: " + sj_wrapper_count);
-        // console.log("riderNumber: " +  riderNumber);
-
         riderType = jQuery("div.sj_rider_wrapper").eq(sj_wrapper_count).attr('data-rider-type');
         jQuery("div.sj_rider_wrapper").eq(sj_wrapper_count).attr('data-rider',riderNumber);
         jQuery('[data-rider-cart]').eq(sj_wrapper_count).attr('data-rider-cart',riderNumber);
 
-        console.log('riderNumber: ' + riderNumber);
-
         jQuery( '[data-rider-cart="'+riderNumber+'"] h4').text('Rider' + riderNumber);
-
-
         jQuery( '[data-rider="'+riderNumber+'"]').find("h2.gsection_title").text(riderType +' ' + riderNumber);
         jQuery( '[data-rider="'+riderNumber+'"]').find(".sj-close").attr('onclick' , 'deleteRider('+riderNumber+')');
         jQuery( '[data-rider="'+riderNumber+'"]').find('#input_'+gf_form_id+'_77').attr('onClick','dropdown_check('+riderNumber +')').attr("data-rider-choice-first", riderNumber);
         jQuery( '[data-rider="'+riderNumber+'"]').find('#input_'+gf_form_id+'_151').attr("data-rider-choice-second", riderNumber);
         jQuery( '[data-rider="'+riderNumber+'"]').find('#input_'+gf_form_id+'_78').attr('onClick','dropdown_check('+riderNumber +')');
-
-
 
         sj_wrapper_count += 1; 
         riderNumber += 1;
@@ -310,12 +303,8 @@ function update_riders_on_delete(){
     });
     jQuery('#sj_add_rider' ).remove();
     jQuery('#sj_add_rider' ).attr('onclick', 'clone_rider_options('+sj_wrapper_count+')')
-    // jQuery('#sj_rider_wrapper ' ).eq(riderNumber).remove();
-    // jQuery('#sj_rider_wrapper ' ).eq(sj_wrapper_count).remove();
     clone_cart();
-    // reduce_total_price_update(riderNumber);
     enable_current_rider(sj_wrapper_count);
-    // console.log(sj_wrapper_count);
 
     
 }
@@ -323,6 +312,7 @@ function update_riders_on_delete(){
 function clone_first_rider_options(){
     var firstRider = 1;
     jQuery( '#field_'+gf_form_id+'_69' ).after(cloned_add_rider_wrapper).show();
+    jQuery("#sj_add_rider_wrapper" ).attr('rider-number', '1')
     jQuery("[rider-number='"+firstRider+"']" ).show();
     jQuery('[rider-number="'+ firstRider +'"]' ).find('#label_'+gf_form_id+'_62_0').attr('onClick','clone_first_rider('+ 1 +')');
     jQuery('[rider-number="'+ firstRider +'"]' ).find('#label_'+gf_form_id+'_62_1').attr('onClick','clone_first_rider('+ 1 +', "passenger")');
@@ -361,9 +351,6 @@ function clone_first_rider(e, f){
 
 }
 
-
-
-
 function countRiderWrapper(e){
     var sj_wrapper_count = 0;
     // console.log("clicked");
@@ -374,7 +361,6 @@ function countRiderWrapper(e){
     // console.log('countRiderWrapper: ' + sj_wrapper_count);
     return sj_wrapper_count;
 }
-
 
 
 function showDelete(e){
@@ -390,8 +376,6 @@ function clone_rider_options(e){
     jQuery( '[data-rider]' ).last().after(cloned_add_rider_wrapper);
     console.log('[rider-number="'+ wrapperCount +'"]');
     jQuery('[rider-number]' ).attr('rider-number',newRider );
-    // jQuery('[rider-number]' ).find('.gfield_label').text("RIDER: " + newRider);
-    // jQuery('[rider-number="'+ newRider +'"]' ).find('#label_'+gf_form_id+'_62_0').attr('onClick','clone_rider('+ newRider +')');
     jQuery('[rider-number]' ).find('#label_'+gf_form_id+'_62_0').attr('onClick','clone_rider('+ newRider +')');
     jQuery('[rider-number]' ).find('#label_'+gf_form_id+'_62_1').attr('onClick','clone_rider('+ newRider +', "passenger")');
     jQuery('[rider-number]' ).show();
@@ -399,14 +383,8 @@ function clone_rider_options(e){
 }
 
 
-
-
-
-
 function clone_rider(e, f){
-    showDelete(e);
-// console.log(f);
-
+showDelete(e);
 
 sj_add_rider = e - 1;
 var cloned_rider_wrapper = jQuery( "[data-rider='1']" ).clone();
@@ -414,18 +392,11 @@ disable_previous_rider(sj_add_rider);
 
 jQuery('[rider-number="'+ e +'"]' ).eq(1).remove();
 jQuery('[rider-number="'+ e +'"]' ).remove();
-    // console.log(sj_add_rider);
-
-
-// jQuery("div.sj_add_rider_wrapper[rider-number='1']" ).hide();
-
 jQuery( '[data-rider="'+sj_add_rider+'"]').after(cloned_rider_wrapper);
 
 
 var cloned_bike_options_first = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_77' ).clone();
 var cloned_bike_options_second = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_151' ).clone();
-
-// jQuery( "div.sj_add_rider_wrapper[data-rider=" +sj_add_rider+ "]");
 
 jQuery( '[data-rider="1"]').eq(1).find("h2.gsection_title").text('RIDER' + e);
 
@@ -461,10 +432,6 @@ function dropdown_check(e){
     var data = '[data-rider="' + e + '"]';
     var wrapperCount = get_wrapper_count('sj_rider_wrapper ');
 
-    console.log('wrapperCount: ' + wrapperCount);
-
-    // console.log("here");
-
     var roomOccupancy = jQuery( data).find("#input_"+gf_form_id+"_78 option:selected").text();
     var bikeSelect = jQuery( data).find( "#input_"+gf_form_id+"_77 option:selected" ).text();
     var rideType = jQuery('[data-rider="' + e + '"]').attr('data-rider-type');
@@ -487,43 +454,33 @@ function dropdown_check(e){
 
         var reduceTotalPrice = e - 1;
         jQuery('[data-rider-cart="' + e + '"]' ).remove();
-        // reduce_total_price_update(e);
         jQuery('#sj_add_rider' ).remove();
     } else {
 
-       if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
+     if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
 
 
 
         if (!jQuery(data).find( " #field_"+gf_form_id+"_152" ).hasClass("sj_clicked")) {
 
             jQuery('#sj_add_rider' ).remove();
-            // console.log("add");
-            jQuery(data).find( " #field_"+gf_form_id+"_152" ).append('<input type="button" id="sj_add_rider" class="gform_next_button button sj_clicked" value="Add Rider" tabindex="12" onclick="clone_rider_options(' + e + ')"> ');
+            clone_rider_options(e);
             clone_cart();
-            // update_cart_info(e,roomOccupancy,bikeSelect);
-            // total_price_update(e);
 
-        }
-        
+        } 
     }
-
 }
+
 
 }
 
 function update_cart_info(e,roomOccupancy,bikeSelect){
-    // console.log(e);
-    // console.log("update_cart_info");
-    // console.log(e+roomOccupancy+bikeSelect);
     jQuery('[data-rider-cart="' + e + '"] .bike_row' ).text(bikeSelect);
     jQuery('[data-rider-cart="' + e + '"] #room_row span' ).text(roomOccupancy);
 }
 
 
 function disable_previous_rider(e){
-    // console.log("disable_previous_rider " + e);
-
     jQuery( '[data-rider="'+e+'"]').find("#input_"+gf_form_id+"_78").attr("disabled", true);
     jQuery( '[data-rider="'+e+'"]').find("#input_"+gf_form_id+"_91").attr("disabled", true);
     jQuery( '[data-rider="'+e+'"]').find("#choice_"+gf_form_id+"_79_1").attr("disabled", true);
@@ -534,7 +491,6 @@ function disable_previous_rider(e){
 }
 
 function enable_current_rider(e){
-    // console.log("enable_previous_rider " + e);
 
     jQuery( '[data-rider="'+e+'"]').find("#input_"+gf_form_id+"_78").attr("disabled", false);
     jQuery( '[data-rider="'+e+'"]').find("#input_"+gf_form_id+"_91").attr("disabled", false);
@@ -547,7 +503,6 @@ function enable_current_rider(e){
 
 function get_wrapper_count(e){
     var sj_wrapper_count = 0;
-    // console.log("clicked");
     jQuery("div." + e).each(function(){
         sj_wrapper_count += 1; 
 
