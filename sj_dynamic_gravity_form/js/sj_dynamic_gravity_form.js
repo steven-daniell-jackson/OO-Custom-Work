@@ -314,6 +314,7 @@ function showDelete(e){
 function clone_rider_options(e){
     jQuery('#sj_add_rider' ).remove();
     var wrapperCount = get_wrapper_count('sj_rider_wrapper ');
+    var newRider = wrapperCount + 1;
 
     jQuery( '[data-rider]' ).last().after(cloned_add_rider_wrapper);
     console.log('[rider-number="'+ wrapperCount +'"]');
