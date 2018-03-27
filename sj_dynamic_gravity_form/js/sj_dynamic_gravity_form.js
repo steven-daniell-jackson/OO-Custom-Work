@@ -4,7 +4,7 @@ jQuery(document).ready(function() {
     cloned_add_rider_wrapper = jQuery( ".sj_add_rider_wrapper" ).clone();
     cloned_first_rider_wrapper = "";
     var cloned_bike_options_first = '';
-var cloned_bike_options_second = '';
+    var cloned_bike_options_second = '';
 
     var cloned_cart = jQuery( "#custom_html-2" ).clone();
     
@@ -142,7 +142,7 @@ if(obj.id === dropdown_value) {
 
         if (rideType == 'solo-rider') {
 
-           if (roomOccupancy == "Please select" || roomOccupancy == "Each single room (1 person, 1 bed)") {
+         if (roomOccupancy == "Please select" || roomOccupancy == "Each single room (1 person, 1 bed)") {
             jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_91' ).hide();
             jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_152' ).next().remove();
         } else {
@@ -152,16 +152,16 @@ if(obj.id === dropdown_value) {
     }
 
 
-if (roomOccupancy == "Please select" || bikeSelect == "Select Bike") {
-    jQuery( "#custom_html-2" ).hide();
-    jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_152' ).next().remove();
-}
+    if (roomOccupancy == "Please select" || bikeSelect == "Select Bike") {
+        jQuery( "#custom_html-2" ).hide();
+        jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_152' ).next().remove();
+    }
 
-if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
-    jQuery( "#custom_html-2" ).show();
-    jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_152' ).after('<input type="button" id="sj_add_rider" class="gform_next_button button" value="Add Rider" tabindex="12" onclick="clone_rider_options('+sj_add_rider_wrapper_count+')"> ');
+    if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
+        jQuery( "#custom_html-2" ).show();
+        jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_152' ).after('<input type="button" id="sj_add_rider" class="gform_next_button button" value="Add Rider" tabindex="12" onclick="clone_rider_options('+sj_add_rider_wrapper_count+')"> ');
 
-}
+    }
 });
 
     jQuery( "#field_"+gf_form_id+"_62" ).click(function() {
@@ -180,10 +180,10 @@ if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
 
 
 function deleteRider(e){
-    // console.log(jQuery( "[data-rider='1']" ));
+    jQuery('.sj_add_rider_wrapper' ).remove();
     cloned_first_rider_wrapper = jQuery( "[data-rider='1']" ).clone();
-cloned_bike_options_first = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_77' ).clone();
-cloned_bike_options_second = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_151' ).clone();
+    cloned_bike_options_first = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_77' ).clone();
+    cloned_bike_options_second = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_151' ).clone();
     
     var prev = e - 1;
     var totalRiders = 0;
@@ -199,11 +199,11 @@ cloned_bike_options_second = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_151
 
         clone_first_rider_options();
     } else {
-        jQuery('[data-rider="'+prev+'"]').find( " #field_"+gf_form_id+"_152" ).append('<input type="button" id="sj_add_rider" class="gform_next_button button sj_clicked" value="Add Rider" tabindex="12" onclick="clone_rider_options(' + prev + ')"> ');
+        jQuery('[data-rider="'+prev+'"]').find( " #field_"+gf_form_id+"_152" ).append('<input type="button" id="sj_add_rider" class="gform_next_button button" value="Add Rider" tabindex="12" onclick="clone_rider_options(' + prev + ')"> ');
     }
 
-    
-update_riders_on_delete();
+    // jQuery('.sj_add_rider_wrapper' ).remove();
+    update_riders_on_delete();
 }
 
 
@@ -213,31 +213,37 @@ function update_riders_on_delete(){
     var riderType = '';
     // console.log("clicked");
 
-jQuery('#sj_add_rider' ).remove();
+    
 
     jQuery("div.sj_rider_wrapper ").each(function(){
 
-console.log("update_riders_on_delete: " + sj_wrapper_count);
-console.log("riderNumber: " +  riderNumber);
+        // console.log("update_riders_on_delete: " + sj_wrapper_count);
+        // console.log("riderNumber: " +  riderNumber);
 
+        riderType = jQuery("div.sj_rider_wrapper").eq(sj_wrapper_count).attr('data-rider-type');
         jQuery("div.sj_rider_wrapper").eq(sj_wrapper_count).attr('data-rider',riderNumber);
-        riderType = jQuery( '[data-rider="'+riderNumber+'"]').attr('data-rider-type');
+        
+var test = riderNumber + 1;
+        console.log('riderNumber: ' + riderNumber);
 
 
         jQuery( '[data-rider="'+riderNumber+'"]').find("h2.gsection_title").text(riderType +' ' + riderNumber);
+        jQuery( '[data-rider="'+riderNumber+'"]').find(".sj-close").attr('onclick' , 'deleteRider('+riderNumber+')');
+        jQuery( '[data-rider="'+riderNumber+'"]').find('#input_'+gf_form_id+'_77').attr('onClick','dropdown_check('+riderNumber +')').attr("data-rider-choice-first", riderNumber);
+        jQuery( '[data-rider="'+riderNumber+'"]').find('#input_'+gf_form_id+'_151').attr("data-rider-choice-second", riderNumber);
+        jQuery( '[data-rider="'+riderNumber+'"]').find('#input_'+gf_form_id+'_78').attr('onClick','dropdown_check('+riderNumber +')');
 
-    jQuery( '[data-rider="'+riderNumber+'"]').find('#input_'+gf_form_id+'_77').attr('onClick','dropdown_check('+riderNumber +')').attr("data-rider-choice-first", riderNumber);
-    jQuery( '[data-rider="'+riderNumber+'"]').find('#input_'+gf_form_id+'_151').attr("data-rider-choice-second", riderNumber);
-    jQuery( '[data-rider="'+riderNumber+'"]').find('#input_'+gf_form_id+'_78').attr('onClick','dropdown_check('+riderNumber +')');
-
-    jQuery('[data-rider="'+riderNumber+'"] #sj_add_rider' ).attr('onclick', 'dropdown_check('+riderNumber +')');
+        
 
         sj_wrapper_count += 1; 
         riderNumber += 1;
         
     });
-
-    enable_current_rider(sj_wrapper_count)
+    jQuery('#sj_add_rider' ).remove();
+    jQuery('#sj_add_rider' ).attr('onclick', 'clone_rider_options('+sj_wrapper_count+')')
+    // jQuery('#sj_rider_wrapper ' ).eq(riderNumber).remove();
+    // jQuery('#sj_rider_wrapper ' ).eq(sj_wrapper_count).remove();
+    enable_current_rider(sj_wrapper_count);
     // console.log(sj_wrapper_count);
 
     
@@ -294,7 +300,7 @@ function countRiderWrapper(e){
         sj_wrapper_count += 1; 
 
     });
-    console.log('countRiderWrapper: ' + sj_wrapper_count);
+    // console.log('countRiderWrapper: ' + sj_wrapper_count);
     return sj_wrapper_count;
 }
 
@@ -307,18 +313,19 @@ function showDelete(e){
 
 function clone_rider_options(e){
     jQuery('#sj_add_rider' ).remove();
-    var newRider = e + 1;
-    // console.log("clone_rider_options: " + newRider );
+    var wrapperCount = get_wrapper_count('sj_rider_wrapper ');
 
-    jQuery( '[data-rider="'+ e +'"]' ).after(cloned_add_rider_wrapper);
-
-    jQuery('[rider-number="'+ e +'"]' ).attr('rider-number',newRider );
-    jQuery('[rider-number="'+ e +'"]' ).find('.gfield_label').text("RIDER: " + newRider);
+    jQuery( '[data-rider]' ).last().after(cloned_add_rider_wrapper);
+    console.log('[rider-number="'+ wrapperCount +'"]');
+    jQuery('[rider-number]' ).attr('rider-number',newRider );
+    // jQuery('[rider-number]' ).find('.gfield_label').text("RIDER: " + newRider);
     // jQuery('[rider-number="'+ newRider +'"]' ).find('#label_'+gf_form_id+'_62_0').attr('onClick','clone_rider('+ newRider +')');
-    jQuery('[rider-number="'+ newRider +'"]' ).find('#label_'+gf_form_id+'_62_0').attr('onClick','clone_rider('+ newRider +')');
-    jQuery('[rider-number="'+ newRider +'"]' ).find('#label_'+gf_form_id+'_62_1').attr('onClick','clone_rider('+ newRider +', "passenger")');
-jQuery('[rider-number="'+ newRider +'"]' ).show();
+    jQuery('[rider-number]' ).find('#label_'+gf_form_id+'_62_0').attr('onClick','clone_rider('+ newRider +')');
+    jQuery('[rider-number]' ).find('#label_'+gf_form_id+'_62_1').attr('onClick','clone_rider('+ newRider +', "passenger")');
+    jQuery('[rider-number]' ).show();
+
 }
+
 
 
 
@@ -334,7 +341,7 @@ var cloned_rider_wrapper = jQuery( "[data-rider='1']" ).clone();
 disable_previous_rider(sj_add_rider);
 
 jQuery('[rider-number="'+ e +'"]' ).eq(1).remove();
-jQuery('[rider-number="'+ e +'"]' ).hide();
+jQuery('[rider-number="'+ e +'"]' ).remove();
     // console.log(sj_add_rider);
 
 
@@ -372,7 +379,7 @@ jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_78').eq(0).attr('onC
 jQuery( '[data-rider="'+e+'"]').find('#field_'+gf_form_id+'_91').hide();
 jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_77').eq(1).remove();
 jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_151').eq(1).remove();
-
+1
 
 enable_current_rider(e);
 
@@ -420,6 +427,10 @@ function reduce_total_price_update(e){
 
 function dropdown_check(e){
     var data = '[data-rider="' + e + '"]';
+    var wrapperCount = get_wrapper_count('sj_rider_wrapper ');
+
+    console.log('wrapperCount: ' + wrapperCount);
+
     // console.log("here");
 
     var roomOccupancy = jQuery( data).find("#input_"+gf_form_id+"_78 option:selected").text();
@@ -448,7 +459,7 @@ function dropdown_check(e){
         jQuery('#sj_add_rider' ).remove();
     } else {
 
-     if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
+       if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
 
 
 
@@ -509,7 +520,7 @@ function get_wrapper_count(e){
         sj_wrapper_count += 1; 
 
     });
-    // console.log(sj_wrapper_count);
+    console.log(sj_wrapper_count);
     return sj_wrapper_count;
 }
 
