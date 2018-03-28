@@ -152,7 +152,7 @@ if(obj.id === dropdown_value) {
 
         if (rideType == 'solo-rider') {
 
-           if (roomOccupancy == "Please select" || roomOccupancy == "Each single room (1 person, 1 bed)") {
+         if (roomOccupancy == "Please select" || roomOccupancy == "Each single room (1 person, 1 bed)") {
             jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_91' ).hide();
             jQuery('div.sj_rider_wrapper[data-rider="1"] #field_'+gf_form_id+'_152' ).next().remove();
         } else {
@@ -196,46 +196,90 @@ function add_rider_details(e) {
     jQuery( "#field_"+gf_form_id+"_40" ).show();
     jQuery('[rider-details]').remove();
     jQuery('.sj_next').remove();
-    
-var riderDetailsNumber = 1;
+
+    var totalRiders = e;   
+    var riderDetailsNumber = 1;
 
     for (e; e > 0; e--) {
 
-        if (riderDetailsNumber == 1) {
-             console.log('riderDetailsNumber'+ riderDetailsNumber);
-            jQuery('#field_'+gf_form_id+'_40').after(cloned_rider_details_wrapper.clone(true)).show();
-            jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
-            jQuery('[rider-details='+riderDetailsNumber+']').append('<a class="button sj_next" onclick="nextRiderDetails('+e+')">Next sdfstep</a>').show();
-            
-        } else {
+        if (riderDetailsNumber == totalRiders) {
+            console.log(jQuery('[rider-details='+riderDetailsNumber+']'));
+
+
+ if (riderDetailsNumber == 1) {
+
+               console.log('riderDetailsNumber'+ riderDetailsNumber);
+
+               jQuery('#field_'+gf_form_id+'_40').after(cloned_rider_details_wrapper.clone(true)).show();
+               jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
+            jQuery('[rider-details="'+riderDetailsNumber+'"]').append('<a class="button sj_continue" onclick="nextRiderDetailsLast()">Continue</a>').show();
+
+
+           } else {
             jQuery('[rider-details]').after(cloned_rider_details_wrapper.clone(true)).show()
             jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
-            jQuery('[rider-details="'+riderDetailsNumber+'"]').append('<a class="button sj_next" onclick="nextRiderDetails('+e+')">Next sdfstep</a>').show();
-        }
-       
+            jQuery('[rider-details="'+riderDetailsNumber+'"]').append('<a class="button sj_continue" onclick="nextRiderDetailsLast()">Continue</a>').show();
 
+        }
+        } else {
+
+
+           if (riderDetailsNumber == 1) {
+
+               console.log('riderDetailsNumber'+ riderDetailsNumber);
+
+               jQuery('#field_'+gf_form_id+'_40').after(cloned_rider_details_wrapper.clone(true)).show();
+               jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
+               jQuery('[rider-details="'+riderDetailsNumber+'"] .sj_next').remove();
+
+
+           } else {
+
+            
+            jQuery('[rider-details]').after(cloned_rider_details_wrapper.clone(true)).show()
+            jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
+            jQuery('[rider-details="'+riderDetailsNumber+'"]').append('<a href="#gform_'+gf_form_id+'" class="button sj_next" onclick="nextRiderDetails('+e+')">Next Rider</a>').show();
+        }
+
+        jQuery('[rider-details='+riderDetailsNumber+']').append('<a href="#gform_'+gf_form_id+'" class="button sj_next " onclick="nextRiderDetails('+e+')">Next Rider</a>').show();
         riderDetailsNumber += 1;
     }
-    jQuery('[rider-details]').hide()
-    jQuery( "#field_"+gf_form_id+"_40 h2" ).text('Rider 1 - Details');
-    jQuery('[rider-details]').first().show();
-    
+
+
+
+
 }
 
+
+jQuery('[rider-details='+totalRiders+'] .sj-next').remove();
+
+
+jQuery('[rider-details]').hide();
+jQuery( "#field_"+gf_form_id+"_40 h2" ).text('Rider 1 - Details');
+jQuery('[rider-details]').first().show();
+
+}
+
+
+function nextRiderDetailsLast() {
+    jQuery('.sj_continue').remove();
+        jQuery('#gform_wrapper_'+gf_form_id+' .gform_footer #gform_submit_button_'+gf_form_id+'').show();
+}
 
 function nextRiderDetails(e){
     console.log('CLICK add_rider_details: ' + e);
 
-var prevRider = e - 1;
+    var prevRider = e - 1;
 
     // var titleUpdate = jQuery('[rider-details]').next().attr('rider-details');
     jQuery('[rider-details='+prevRider+']').hide();
     jQuery('[rider-details ='+e+']').show();
     jQuery( "#field_"+gf_form_id+"_40 h2" ).text('Rider '+e+' - Details');
+
 }
 
 function clone_cart(e){
-    
+
     jQuery( '#custom_html-2 ').empty();
     var count = 0;
     var riderNumber = count + 1;
@@ -306,11 +350,11 @@ function deleteRider(e){
 
         clone_first_rider_options();
     } else {
-     clone_rider_options(prev);
- }
+       clone_rider_options(prev);
+   }
 
- update_riders_on_delete();
- clone_cart();
+   update_riders_on_delete();
+   clone_cart();
 }
 
 
@@ -418,47 +462,47 @@ function clone_rider_options(e){
 
 
 function clone_rider(e, f){
-showDelete(e);
+    showDelete(e);
 
-sj_add_rider = e - 1;
-var cloned_rider_wrapper = jQuery( "[data-rider='1']" ).clone();
-disable_previous_rider(sj_add_rider);
+    sj_add_rider = e - 1;
+    var cloned_rider_wrapper = jQuery( "[data-rider='1']" ).clone();
+    disable_previous_rider(sj_add_rider);
 
-jQuery('[rider-number="'+ e +'"]' ).eq(1).remove();
-jQuery('[rider-number="'+ e +'"]' ).remove();
-jQuery( '[data-rider="'+sj_add_rider+'"]').after(cloned_rider_wrapper);
-
-
-var cloned_bike_options_first = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_77' ).clone();
-var cloned_bike_options_second = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_151' ).clone();
-
-jQuery( '[data-rider="1"]').eq(1).find("h2.gsection_title").text('RIDER' + e);
-
-if (f == "passenger") {
-    console.log("passenger clicked");
-    jQuery( '[data-rider="1"]').eq(1).find("h2.gsection_title").text('Rider with Passenger' + e);
-    jQuery( '[data-rider="1"]').eq(1).attr('data-rider-type', "rider-with-passenger");
-} else {
-    console.log("solo clicked");
-    jQuery( '[data-rider="1"]').eq(1).find("h2.gsection_title").text('Solo Rider' + e);
-    jQuery( '[data-rider="1"]').eq(1).attr('data-rider-type',  "solo-rider");
-}
-
-jQuery( '[data-rider="1"]').eq(1).attr('data-rider', e);
-jQuery( '[data-rider="'+sj_add_rider+'"]').find('#sj_add_rider').remove();
-jQuery( '[data-rider="'+e+'"]').find('#sj_add_rider').remove();
-jQuery( '[data-rider="'+e+'"]').find('.sj-close').attr('onclick', 'deleteRider('+e+')');
-
-jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_77').eq(0).attr('onClick','dropdown_check('+e +')').attr("data-rider-choice-first", e);
-jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_151').eq(0).attr("data-rider-choice-second", e);
-jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_78').eq(0).attr('onClick','dropdown_check('+e +')');
-
-jQuery( '[data-rider="'+e+'"]').find('#field_'+gf_form_id+'_91').hide();
-jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_77').eq(1).remove();
-jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_151').eq(1).remove();
+    jQuery('[rider-number="'+ e +'"]' ).eq(1).remove();
+    jQuery('[rider-number="'+ e +'"]' ).remove();
+    jQuery( '[data-rider="'+sj_add_rider+'"]').after(cloned_rider_wrapper);
 
 
-enable_current_rider(e);
+    var cloned_bike_options_first = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_77' ).clone();
+    var cloned_bike_options_second = jQuery( '[data-rider="1"] #input_'+gf_form_id+'_151' ).clone();
+
+    jQuery( '[data-rider="1"]').eq(1).find("h2.gsection_title").text('RIDER' + e);
+
+    if (f == "passenger") {
+        console.log("passenger clicked");
+        jQuery( '[data-rider="1"]').eq(1).find("h2.gsection_title").text('Rider with Passenger' + e);
+        jQuery( '[data-rider="1"]').eq(1).attr('data-rider-type', "rider-with-passenger");
+    } else {
+        console.log("solo clicked");
+        jQuery( '[data-rider="1"]').eq(1).find("h2.gsection_title").text('Solo Rider' + e);
+        jQuery( '[data-rider="1"]').eq(1).attr('data-rider-type',  "solo-rider");
+    }
+
+    jQuery( '[data-rider="1"]').eq(1).attr('data-rider', e);
+    jQuery( '[data-rider="'+sj_add_rider+'"]').find('#sj_add_rider').remove();
+    jQuery( '[data-rider="'+e+'"]').find('#sj_add_rider').remove();
+    jQuery( '[data-rider="'+e+'"]').find('.sj-close').attr('onclick', 'deleteRider('+e+')');
+
+    jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_77').eq(0).attr('onClick','dropdown_check('+e +')').attr("data-rider-choice-first", e);
+    jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_151').eq(0).attr("data-rider-choice-second", e);
+    jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_78').eq(0).attr('onClick','dropdown_check('+e +')');
+
+    jQuery( '[data-rider="'+e+'"]').find('#field_'+gf_form_id+'_91').hide();
+    jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_77').eq(1).remove();
+    jQuery( '[data-rider="'+e+'"]').find('#input_'+gf_form_id+'_151').eq(1).remove();
+
+
+    enable_current_rider(e);
 
 }
 
@@ -491,7 +535,7 @@ function dropdown_check(e){
         jQuery('#sj_add_rider' ).remove();
     } else {
 
-     if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
+       if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
 
 
 
