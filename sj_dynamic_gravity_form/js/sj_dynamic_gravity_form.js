@@ -11,7 +11,7 @@ jQuery(document).ready(function() {
 
     jQuery( ".sj_rider_details_wrapper " ).hide();
     jQuery( "#field_"+gf_form_id+"_40" ).hide();
-    jQuery('#gform_wrapper_15 .gform_footer #gform_submit_button_15').hide();
+    jQuery('#gform_wrapper_'+gf_form_id+' .gform_footer #gform_submit_button_'+gf_form_id+'').hide();
     jQuery('.cart-total-price').hide()
     
 
@@ -187,18 +187,52 @@ if(obj.id === dropdown_value) {
 }); // document ready
 
 
-function add_rider_details() {
-    
-    jQuery('#gform_wrapper_'+gf_form_id+' .gform_footer').append("<span>add_rider_details()</span>");
+function add_rider_details(e) {
+    console.log("Amount of Riders: "+ e);
+    // jQuery('#gform_wrapper_'+gf_form_id+' .gform_footer').append("<span>add_rider_details()</span>");
     jQuery('.sj_rider_wrapper ').hide();
     jQuery('.sj_add_rider_wrapper ').hide();
     jQuery('#field_'+gf_form_id+'_69 ').hide();
     jQuery( "#field_"+gf_form_id+"_40" ).show();
-    jQuery('#field_'+gf_form_id+'_40').after(cloned_rider_details_wrapper).show();
+    jQuery('[rider-details]').remove();
+    jQuery('.sj_next').remove();
+    
+var riderDetailsNumber = 1;
 
+    for (e; e > 0; e--) {
+
+        if (riderDetailsNumber == 1) {
+             console.log('riderDetailsNumber'+ riderDetailsNumber);
+            jQuery('#field_'+gf_form_id+'_40').after(cloned_rider_details_wrapper.clone(true)).show();
+            jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
+            jQuery('[rider-details='+riderDetailsNumber+']').append('<a class="button sj_next" onclick="nextRiderDetails('+e+')">Next sdfstep</a>').show();
+            
+        } else {
+            jQuery('[rider-details]').after(cloned_rider_details_wrapper.clone(true)).show()
+            jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
+            jQuery('[rider-details="'+riderDetailsNumber+'"]').append('<a class="button sj_next" onclick="nextRiderDetails('+e+')">Next sdfstep</a>').show();
+        }
+       
+
+        riderDetailsNumber += 1;
+    }
+    jQuery('[rider-details]').hide()
+    jQuery( "#field_"+gf_form_id+"_40 h2" ).text('Rider 1 - Details');
+    jQuery('[rider-details]').first().show();
     
 }
 
+
+function nextRiderDetails(e){
+    console.log('CLICK add_rider_details: ' + e);
+
+var prevRider = e - 1;
+
+    // var titleUpdate = jQuery('[rider-details]').next().attr('rider-details');
+    jQuery('[rider-details='+prevRider+']').hide();
+    jQuery('[rider-details ='+e+']').show();
+    jQuery( "#field_"+gf_form_id+"_40 h2" ).text('Rider '+e+' - Details');
+}
 
 function clone_cart(e){
     
@@ -233,7 +267,7 @@ function clone_cart(e){
 
     total_price_update(count);
     jQuery('.sj_next').remove();
-    jQuery('#gform_wrapper_15 .gform_footer').append('<a class="button sj_next" onclick="add_rider_details()">next</a>');
+    jQuery('#gform_wrapper_'+gf_form_id+' .gform_footer').append('<a class="button sj_next" onclick="add_rider_details('+count+')">Next step</a>');
 }
 
 
