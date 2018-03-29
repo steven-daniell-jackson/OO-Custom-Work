@@ -7,7 +7,7 @@
    Date Created: 19 March 2018
    */
 
-	//  Create Additional input field on user registration
+    //  Create Additional input field on user registration
 
 
    add_action( 'show_user_profile', 'extra_user_profile_fields' );
