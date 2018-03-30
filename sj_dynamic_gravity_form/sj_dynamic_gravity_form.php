@@ -48,8 +48,15 @@ $postData = $_SESSION['myKey'];
 
 $buildString = '';
 
-foreach ($postData[0]  as $key => $value) {
+foreach ($postData   as $key => $value) {
+
+  foreach ($postData["$key"]   as $key => $value) {
+
+  
   $buildString = $buildString . "$key => $value\n";
+}
+
+  // $buildString = $buildString . "$key => $value\n";
 }
 
 
