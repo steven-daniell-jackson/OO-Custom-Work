@@ -313,8 +313,7 @@ else {
 
 
 function add_rider_details(e) {
-    // console.log("Amount of Riders: "+ e);
-    // jQuery('#gform_wrapper_'+gf_form_id+' .gform_footer').append("<span>add_rider_details()</span>");
+
     jQuery('.sj_rider_wrapper ').hide();
     jQuery('.sj_add_rider_wrapper ').hide();
     jQuery('#field_'+gf_form_id+'_69 ').hide();
@@ -328,22 +327,17 @@ function add_rider_details(e) {
     for (e; e > 0; e--) {
 
         if (riderDetailsNumber == totalRiders) {
-            // console.log(jQuery('[rider-details='+riderDetailsNumber+']'));
-
 
             if (riderDetailsNumber == 1) {
-
-               // console.log('riderDetailsNumber'+ riderDetailsNumber);
-
                jQuery('#field_'+gf_form_id+'_40').after(cloned_rider_details_wrapper.clone(true)).show();
                jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
-               jQuery('[rider-details="'+riderDetailsNumber+'"]').append('<a class="button sj_continue" onclick="nextRiderDetailsLast()">Continue</a>').show();
 
+               jQuery('[rider-details="'+riderDetailsNumber+'"]').append('<a class="button sj_continue" onclick="nextRiderDetailsLast('+riderDetailsNumber+')">Continue</a>').show();
 
            } else {
             jQuery('[rider-details]').after(cloned_rider_details_wrapper.clone(true)).show()
             jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
-            jQuery('[rider-details="'+riderDetailsNumber+'"]').append('<a class="button sj_continue" onclick="nextRiderDetailsLast()">Continue</a>').show();
+            jQuery('[rider-details="'+riderDetailsNumber+'"]').append('<a class="button sj_continue" onclick="nextRiderDetailsLast('+riderDetailsNumber+')">Continue</a>').show();
 
         }
     } else {
@@ -351,15 +345,11 @@ function add_rider_details(e) {
 
        if (riderDetailsNumber == 1) {
 
-           // console.log('riderDetailsNumber'+ riderDetailsNumber);
-
            jQuery('#field_'+gf_form_id+'_40').after(cloned_rider_details_wrapper.clone(true)).show();
            jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
            jQuery('[rider-details="'+riderDetailsNumber+'"] .sj_next').remove();
 
-
        } else {
-
 
         jQuery('[rider-details]').after(cloned_rider_details_wrapper.clone(true)).show()
         jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
@@ -370,15 +360,9 @@ function add_rider_details(e) {
     riderDetailsNumber += 1;
 }
 
-
-
-
 }
 
-
 jQuery('[rider-details='+totalRiders+'] .sj-next').remove();
-
-
 jQuery('[rider-details]').hide();
 jQuery( "#field_"+gf_form_id+"_40 h2" ).text('Rider 1 - Details');
 jQuery('[rider-details]').first().show();
@@ -386,21 +370,134 @@ jQuery('[rider-details]').first().show();
 }
 
 
-function nextRiderDetailsLast() {
-    jQuery('.sj_continue').remove();
-    jQuery('#gform_wrapper_'+gf_form_id+' .gform_footer #gform_submit_button_'+gf_form_id+'').show();
+function nextRiderDetailsLast(e) {
+
+    if (validateRiderDetails(e) != false) {
+
+        jQuery('.sj_continue').remove();
+        jQuery('#gform_wrapper_'+gf_form_id+' .gform_footer #gform_submit_button_'+gf_form_id+'').show();
+    }
+    
 }
 
 function nextRiderDetails(e){
     console.log('CLICK add_rider_details: ' + e);
+    var prevRider = e - 1; 
 
-    var prevRider = e - 1;
+    if (validateRiderDetails(prevRider) != false) {
 
-    // var titleUpdate = jQuery('[rider-details]').next().attr('rider-details');
     jQuery('[rider-details='+prevRider+']').hide();
     jQuery('[rider-details ='+e+']').show();
     jQuery( "#field_"+gf_form_id+"_40 h2" ).text('Rider '+e+' - Details');
 
+     }
+
+}
+
+
+function validateRiderDetails(e){
+
+    var valid = true;
+    var data = '[rider-details="'+e+'"]';
+    console.log("validateRiderDetails running");
+    console.log("validateRiderDetails " + e);
+    console.log(data);
+
+    if (jQuery(data + " #input_"+gf_form_id+"_1").val() == '') {
+        jQuery(data + " #input_"+gf_form_id+"_1" ).css('border-color', 'red');
+        valid = false;
+        
+    } else {
+        jQuery(data).find( " #input_"+gf_form_id+"_1" ).css('border-color', '#424242');
+
+    }
+
+    if (jQuery(data + " #input_"+gf_form_id+"_169").val() == '') {
+        jQuery(data + " #input_"+gf_form_id+"_169" ).css('border-color', 'red');
+        valid = false;
+        
+    } else {
+        jQuery(data).find( " #input_"+gf_form_id+"_169" ).css('border-color', '#424242');
+
+    }
+
+
+    if (jQuery(data + " #input_"+gf_form_id+"_5").val() == '') {
+        jQuery(data + " #input_"+gf_form_id+"_5" ).css('border-color', 'red');
+        valid = false;
+        
+    } else {
+        jQuery(data).find( " #input_"+gf_form_id+"_5" ).css('border-color', '#424242');
+
+    }
+
+
+    if (jQuery(data + " #input_"+gf_form_id+"_35").val() == '') {
+        jQuery(data + " #input_"+gf_form_id+"_35" ).css('border-color', 'red');
+        valid = false;
+        
+    } else {
+        jQuery(data).find( " #input_"+gf_form_id+"_35" ).css('border-color', '#424242');
+
+    }
+
+
+    if (jQuery(data + " #input_"+gf_form_id+"_38").val() == '') {
+        jQuery(data + " #input_"+gf_form_id+"_38" ).css('border-color', 'red');
+        valid = false;
+        
+    } else {
+        jQuery(data).find( " #input_"+gf_form_id+"_38" ).css('border-color', '#424242');
+
+    }
+
+
+    if (jQuery(data + " #input_"+gf_form_id+"_18_1").val() == '') {
+        jQuery(data + " #input_"+gf_form_id+"_18_1" ).css('border-color', 'red');
+        valid = false;
+        
+    } else {
+        jQuery(data).find( " #input_"+gf_form_id+"_18_1" ).css('border-color', '#424242');
+
+    }
+
+
+    if (jQuery(data + " #input_"+gf_form_id+"_18_3").val() == '') {
+        jQuery(data + " #input_"+gf_form_id+"_18_3" ).css('border-color', 'red');
+        valid = false;
+        
+    } else {
+        jQuery(data).find( " #input_"+gf_form_id+"_18_3" ).css('border-color', '#424242');
+
+    }
+
+
+    if (jQuery(data + " #input_"+gf_form_id+"_18_4").val() == '') {
+        jQuery(data + " #input_"+gf_form_id+"_18_4" ).css('border-color', 'red');
+        valid = false;
+        
+    } else {
+        jQuery(data).find( " #input_"+gf_form_id+"_18_4" ).css('border-color', '#424242');
+
+    }
+
+
+    if (jQuery(data + " #input_"+gf_form_id+"_18_5").val() == '') {
+        jQuery(data + " #input_"+gf_form_id+"_18_5" ).css('border-color', 'red');
+        valid = false;
+        
+    } else {
+        jQuery(data).find( " #input_"+gf_form_id+"_18_5" ).css('border-color', '#424242');
+
+    }
+
+
+if (valid == false) {
+    jQuery(data + " #input_"+gf_form_id+"_1" ).focus();
+    alert ('Missing required fields');
+}
+
+return valid;
 }
 
 function clone_cart(e){
@@ -417,10 +514,6 @@ function clone_cart(e){
 
         var bike = jQuery(this).find('#input_'+gf_form_id+'_77 :selected').text();
         var room = jQuery(this).find('#input_'+gf_form_id+'_78 :selected').text();
-
-
-        // console.log('clone_cart: ' + count);
-        // console.log(jQuery( "[data-rider='"+riderNumber+"'] h2").text());
 
         jQuery( '#custom_html-2 ').append(cloned_cart.clone(true)).show();
 
@@ -556,12 +649,10 @@ function clone_first_rider(e, f){
 
 function countRiderWrapper(e){
     var sj_wrapper_count = 0;
-    // console.log("clicked");
     jQuery("div." + e).each(function(){
         sj_wrapper_count += 1; 
 
     });
-    // console.log('countRiderWrapper: ' + sj_wrapper_count);
     return sj_wrapper_count;
 }
 
@@ -697,7 +788,6 @@ else {
 } 
 }
 
-
 }
 
 }
@@ -738,11 +828,6 @@ function get_wrapper_count(e){
     console.log(sj_wrapper_count);
     return sj_wrapper_count;
 }
-
-
-
-
-
 
 console.log('SJ - Dynamic Gravity Form JS Active');
 
