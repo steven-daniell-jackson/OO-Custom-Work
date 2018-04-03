@@ -7,7 +7,7 @@
    Date Created: 19 March 2018
    */
 
-    //  Create Additional input field on user registration
+  //  Create Additional input field on user registration
 
 
    add_action( 'show_user_profile', 'extra_user_profile_fields' );
@@ -92,6 +92,18 @@ add_action('wp_ajax_get_prev', 'get_prev_ajax_handler'); // add action for logge
 add_action( 'wp_ajax_nopriv_get_prev', 'get_prev_ajax_handler' ); // add action for unlogged users
 
 
+function update_name_ajax_handler() {
+
+$current_user_id = get_current_user_id();
+
+update_user_meta( $current_user_id, 'first_name', $_COOKIE['firstName']);
+update_user_meta( $current_user_id, 'last_name', $_COOKIE['lastName']);
+
+
+}
+
+add_action('wp_ajax_update_name', 'update_name_ajax_handler'); // add action for logged users
+add_action( 'wp_ajax_nopriv_update_name', 'update_name_ajax_handler' ); // add action for unlogged users
 
 add_action('wp_head', 'myplugin_ajaxurl');
 
