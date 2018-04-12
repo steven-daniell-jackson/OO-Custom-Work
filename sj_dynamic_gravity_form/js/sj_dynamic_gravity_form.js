@@ -68,9 +68,9 @@ var test2 = "ajax post test";
 
 
 jQuery.ajax({
-   type: "POST",
-   dataType: 'json',
-   data: {
+ type: "POST",
+ dataType: 'json',
+ data: {
     action:'sj_rider', 
     riderData : postData
        // 'id': {'test': 166323}
@@ -237,7 +237,7 @@ if(obj.id === dropdown_value) {
 
     if (rideType == 'solo-rider') {
 
-     if (roomOccupancy == "Please select" || roomOccupancy == "Each single room (1 person, 1 bed)") {
+       if (roomOccupancy == "Please select" || roomOccupancy == "Each single room (1 person, 1 bed)") {
         jQuery(data + ' #field_'+gf_form_id+'_91' ).hide();
         jQuery(data + ' #field_'+gf_form_id+'_152' ).next().remove();
         roommateCheck = false;
@@ -260,17 +260,17 @@ if (roomOccupancy == "Please select" || bikeSelect == "Select Bike") {
 if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
 
     if (roommateCheck == true) {
-       if (!jQuery(data).find( " #field_"+gf_form_id+"_152" ).hasClass("sj_clicked")) {
+     if (!jQuery(data).find( " #field_"+gf_form_id+"_152" ).hasClass("sj_clicked")) {
         console.log(roommateCheck);
         
 
         if (jQuery(data + ' #input_'+gf_form_id+'_91' ).val() == "") {
-           alert("Error: Room mate name is required");
-           jQuery(data).find( " #input_"+gf_form_id+"_91" ).css('border-color', 'red');
-           jQuery(data).focus();
-           jQuery( "#input_"+gf_form_id+"_77" ).prop("selectedIndex", 0);
-           roommateCheck = true;
-       } else {
+         alert("Error: Room mate name is required");
+         jQuery(data).find( " #input_"+gf_form_id+"_91" ).css('border-color', 'red');
+         jQuery(data).focus();
+         jQuery( "#input_"+gf_form_id+"_77" ).prop("selectedIndex", 0);
+         roommateCheck = true;
+     } else {
 
         jQuery('#sj_add_rider' ).remove();
         jQuery(data).find( " #input_"+gf_form_id+"_91" ).css('border-color', '#424242');
@@ -285,7 +285,7 @@ if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
 }
 else {
 
-   if (!jQuery(data).find( " #field_"+gf_form_id+"_152" ).hasClass("sj_clicked")) {
+ if (!jQuery(data).find( " #field_"+gf_form_id+"_152" ).hasClass("sj_clicked")) {
     console.log(roommateCheck);
     jQuery('#sj_add_rider' ).remove();
     clone_cart();
@@ -329,12 +329,12 @@ function add_rider_details(e) {
         if (riderDetailsNumber == totalRiders) {
 
             if (riderDetailsNumber == 1) {
-               jQuery('#field_'+gf_form_id+'_40').after(cloned_rider_details_wrapper.clone(true)).show();
-               jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
+             jQuery('#field_'+gf_form_id+'_40').after(cloned_rider_details_wrapper.clone(true)).show();
+             jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
 
-               jQuery('[rider-details="'+riderDetailsNumber+'"]').append('<a class="button sj_continue" onclick="nextRiderDetailsLast('+riderDetailsNumber+')">Continue</a>').show();
+             jQuery('[rider-details="'+riderDetailsNumber+'"]').append('<a class="button sj_continue" onclick="nextRiderDetailsLast('+riderDetailsNumber+')">Continue</a>').show();
 
-           } else {
+         } else {
             jQuery('[rider-details]').after(cloned_rider_details_wrapper.clone(true)).show()
             jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
             jQuery('[rider-details="'+riderDetailsNumber+'"]').append('<a class="button sj_continue" onclick="nextRiderDetailsLast('+riderDetailsNumber+')">Continue</a>').show();
@@ -343,13 +343,13 @@ function add_rider_details(e) {
     } else {
 
 
-       if (riderDetailsNumber == 1) {
+     if (riderDetailsNumber == 1) {
 
-           jQuery('#field_'+gf_form_id+'_40').after(cloned_rider_details_wrapper.clone(true)).show();
-           jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
-           jQuery('[rider-details="'+riderDetailsNumber+'"] .sj_next').remove();
+         jQuery('#field_'+gf_form_id+'_40').after(cloned_rider_details_wrapper.clone(true)).show();
+         jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
+         jQuery('[rider-details="'+riderDetailsNumber+'"] .sj_next').remove();
 
-       } else {
+     } else {
 
         jQuery('[rider-details]').after(cloned_rider_details_wrapper.clone(true)).show()
         jQuery('.sj_rider_details_wrapper').eq(1).attr('rider-details', riderDetailsNumber);
@@ -386,11 +386,11 @@ function nextRiderDetails(e){
 
     if (validateRiderDetails(prevRider) != false) {
 
-    jQuery('[rider-details='+prevRider+']').hide();
-    jQuery('[rider-details ='+e+']').show();
-    jQuery( "#field_"+gf_form_id+"_40 h2" ).text('Rider '+e+' - Details');
+        jQuery('[rider-details='+prevRider+']').hide();
+        jQuery('[rider-details ='+e+']').show();
+        jQuery( "#field_"+gf_form_id+"_40 h2" ).text('Rider '+e+' - Details');
 
-     }
+    }
 
 }
 
@@ -492,12 +492,12 @@ function validateRiderDetails(e){
     }
 
 
-if (valid == false) {
-    jQuery(data + " #input_"+gf_form_id+"_1" ).focus();
-    alert ('Missing required fields');
-}
+    if (valid == false) {
+        jQuery(data + " #input_"+gf_form_id+"_1" ).focus();
+        alert ('Missing required fields');
+    }
 
-return valid;
+    return valid;
 }
 
 function clone_cart(e){
@@ -530,6 +530,7 @@ function clone_cart(e){
     total_price_update(count);
     jQuery('.sj_next').remove();
     jQuery('#gform_wrapper_'+gf_form_id+' .gform_footer').append('<a class="button sj_next" onclick="add_rider_details('+count+')">Next step</a>');
+
 }
 
 
@@ -567,14 +568,17 @@ function deleteRider(e){
 
 
     if (totalRiders == 0) {
-        console.log('here');
-        clone_first_rider_options();
-    } else {
-       clone_rider_options(prev);
+         clone_first_rider_options();
+         update_riders_on_delete();
+         clone_cart();
+         jQuery('.cart-total-price').hide();
+         jQuery('#custom_html-2').hide();
+     } else {
+        update_riders_on_delete();
+        clone_cart();
+        clone_rider_options(prev);
    }
 
-   update_riders_on_delete();
-   clone_cart();
 }
 
 
@@ -756,17 +760,17 @@ function dropdown_check(e){
     if (roomOccupancy != "Please select" && bikeSelect != "Select Bike") {
 
         if (roommateCheck == true) {
-           if (!jQuery(data).find( " #field_"+gf_form_id+"_152" ).hasClass("sj_clicked")) {
+         if (!jQuery(data).find( " #field_"+gf_form_id+"_152" ).hasClass("sj_clicked")) {
             console.log(roommateCheck);
 
 
             if (jQuery(data + ' #input_'+gf_form_id+'_91' ).val() == "") {
-               alert("Error: Room mate name is required");
-               jQuery(data).find( " #input_"+gf_form_id+"_91" ).css('border-color', 'red');
-               jQuery(data).focus();
-               jQuery( data+ " #input_"+gf_form_id+"_77" ).prop("selectedIndex", 0);
-               roommateCheck = true;
-           } else {
+             alert("Error: Room mate name is required");
+             jQuery(data).find( " #input_"+gf_form_id+"_91" ).css('border-color', 'red');
+             jQuery(data).focus();
+             jQuery( data+ " #input_"+gf_form_id+"_77" ).prop("selectedIndex", 0);
+             roommateCheck = true;
+         } else {
 
             jQuery('#sj_add_rider' ).remove();
             jQuery(data).find( " #input_"+gf_form_id+"_91" ).css('border-color', '#424242');
@@ -781,7 +785,7 @@ function dropdown_check(e){
 }
 else {
 
-   if (!jQuery(data).find( " #field_"+gf_form_id+"_152" ).hasClass("sj_clicked")) {
+ if (!jQuery(data).find( " #field_"+gf_form_id+"_152" ).hasClass("sj_clicked")) {
     console.log(roommateCheck);
     jQuery('#sj_add_rider' ).remove();
     clone_cart();
