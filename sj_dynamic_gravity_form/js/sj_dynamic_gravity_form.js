@@ -564,8 +564,10 @@ function deleteRider(e){
 
     totalRiders = countRiderWrapper('sj_rider_wrapper ');
 
-    if (totalRiders == 0) {
 
+
+    if (totalRiders == 0) {
+        console.log('here');
         clone_first_rider_options();
     } else {
        clone_rider_options(prev);
@@ -608,7 +610,7 @@ function update_riders_on_delete(){
 function clone_first_rider_options(){
     var firstRider = 1;
     jQuery( '#field_'+gf_form_id+'_69' ).after(cloned_add_rider_wrapper).show();
-    jQuery("#sj_add_rider_wrapper" ).attr('rider-number', '1')
+    jQuery(".sj_add_rider_wrapper" ).attr('rider-number', '1')
     jQuery("[rider-number='"+firstRider+"']" ).show();
     jQuery('[rider-number="'+ firstRider +'"]' ).find('#label_'+gf_form_id+'_62_0').attr('onClick','clone_first_rider('+ 1 +')');
     jQuery('[rider-number="'+ firstRider +'"]' ).find('#label_'+gf_form_id+'_62_1').attr('onClick','clone_first_rider('+ 1 +', "passenger")');
