@@ -49,18 +49,18 @@ function step3(){
 
 
 function uniqueRadioId(){
-    jQuery("#field_15_173").each(function(){
+    jQuery("#field_"+gf_form_id+"_173").each(function(){
         var randomID = getRandomRadioId ();
 
-        jQuery(this).find('input').attr('name', 'input_15_' + randomID);
+        jQuery(this).find('input').attr('name', 'input_'+gf_form_id+'_' + randomID);
         jQuery(this).find('ul').attr('id', 'input_' + randomID);
 
-        jQuery(this).find('input').eq(0).attr('id', 'choice_15_' + randomID + '_0');
-        jQuery(this).find('input').eq(1).attr('id', 'choice_15_' + randomID + '_1');
-        jQuery(this).find('label').eq(1).attr('id', 'label_15_' + randomID + '_0');
-        jQuery(this).find('label').eq(2).attr('id', 'label_15_' + randomID + '_1');
-        jQuery(this).find('label').eq(1).attr('for', 'choice_15_' + randomID + '_0');
-        jQuery(this).find('label').eq(2).attr('for', 'choice_15_' + randomID + '_1');
+        jQuery(this).find('input').eq(0).attr('id', 'choice_'+gf_form_id+'_' + randomID + '_0').on('click', updateCart);
+        jQuery(this).find('input').eq(1).attr('id', 'choice_'+gf_form_id+'_' + randomID + '_1').on('click', updateCart);
+        jQuery(this).find('label').eq(1).attr('id', 'label_'+gf_form_id+'_' + randomID + '_0');
+        jQuery(this).find('label').eq(2).attr('id', 'label_'+gf_form_id+'_' + randomID + '_1');
+        jQuery(this).find('label').eq(1).attr('for', 'choice_'+gf_form_id+'_' + randomID + '_0');
+        jQuery(this).find('label').eq(2).attr('for', 'choice_'+gf_form_id+'_' + randomID + '_1');
 
 
         
@@ -69,15 +69,15 @@ function uniqueRadioId(){
     jQuery(".rider-solo-insurance").each(function(){
         var randomID = getRandomRadioId ();
 
-        jQuery(this).find('input').attr('name', 'input_15_' + randomID);
+        jQuery(this).find('input').attr('name', 'input_'+gf_form_id+'_' + randomID);
         jQuery(this).find('ul').attr('id', 'input_' + randomID);
 
-        jQuery(this).find('input').eq(0).attr('id', 'choice_15_' + randomID + '_0');
-        jQuery(this).find('input').eq(1).attr('id', 'choice_15_' + randomID + '_1');
-        jQuery(this).find('label').eq(1).attr('id', 'label_15_' + randomID + '_0');
-        jQuery(this).find('label').eq(2).attr('id', 'label_15_' + randomID + '_1');
-        jQuery(this).find('label').eq(1).attr('for', 'choice_15_' + randomID + '_0');
-        jQuery(this).find('label').eq(2).attr('for', 'choice_15_' + randomID + '_1');
+        jQuery(this).find('input').eq(0).attr('id', 'choice_1'+gf_form_id+'_' + randomID + '_0').on('click', updateSoloCart);
+        jQuery(this).find('input').eq(1).attr('id', 'choice_1'+gf_form_id+'_' + randomID + '_1').on('click', updateSoloCart);
+        jQuery(this).find('label').eq(1).attr('id', 'label_1'+gf_form_id+'_' + randomID + '_0');
+        jQuery(this).find('label').eq(2).attr('id', 'label_1'+gf_form_id+'_' + randomID + '_1');
+        jQuery(this).find('label').eq(1).attr('for', 'choice_1'+gf_form_id+'_' + randomID + '_0');
+        jQuery(this).find('label').eq(2).attr('for', 'choice_1'+gf_form_id+'_' + randomID + '_1');
 
 
         
@@ -86,15 +86,15 @@ function uniqueRadioId(){
     jQuery(".rider-passenger-insurance").each(function(){
         var randomID = getRandomRadioId ();
 
-        jQuery(this).find('input').attr('name', 'input_15_' + randomID);
+        jQuery(this).find('input').attr('name', 'input_'+gf_form_id+'_' + randomID);
         jQuery(this).find('ul').attr('id', 'input_' + randomID);
 
-        jQuery(this).find('input').eq(0).attr('id', 'choice_15_' + randomID + '_0');
-        jQuery(this).find('input').eq(1).attr('id', 'choice_15_' + randomID + '_1');
-        jQuery(this).find('label').eq(1).attr('id', 'label_15_' + randomID + '_0');
-        jQuery(this).find('label').eq(2).attr('id', 'label_15_' + randomID + '_1');
-        jQuery(this).find('label').eq(1).attr('for', 'choice_15_' + randomID + '_0');
-        jQuery(this).find('label').eq(2).attr('for', 'choice_15_' + randomID + '_1');
+        jQuery(this).find('input').eq(0).attr('id', 'choice_'+gf_form_id+'_' + randomID + '_0').on('click', updatePassengerCart);
+        jQuery(this).find('input').eq(1).attr('id', 'choice_'+gf_form_id+'_' + randomID + '_1').on('click', updatePassengerCart);
+        jQuery(this).find('label').eq(1).attr('id', 'label_'+gf_form_id+'_' + randomID + '_0');
+        jQuery(this).find('label').eq(2).attr('id', 'label_'+gf_form_id+'_' + randomID + '_1');
+        jQuery(this).find('label').eq(1).attr('for', 'choice_'+gf_form_id+'_' + randomID + '_0');
+        jQuery(this).find('label').eq(2).attr('for', 'choice_'+gf_form_id+'_' + randomID + '_1');
 
 
         
@@ -102,6 +102,35 @@ function uniqueRadioId(){
 
 
 }
+
+function updateCart(){
+
+    var riderNumber = jQuery(this).closest('.sj_rider_insurance_wrapper').attr('rider-insurance-number');
+    var priceUpdate = jQuery(this).val();
+    var radioText = jQuery(this).next().text();
+
+    jQuery('[data-rider-cart= '+ riderNumber +'] #insurance-option-first-id .insurance-option').text(radioText);
+}
+
+function updateSoloCart(){
+
+    var riderNumber = jQuery(this).closest('.sj_rider_insurance_wrapper').attr('rider-insurance-number');
+    var priceUpdate = jQuery(this).val();
+    var radioText = jQuery(this).next().text();
+
+    jQuery('[data-rider-cart= '+ riderNumber +'] #insurance-option-second-id .insurance-option').text(radioText);
+}
+
+function updatePassengerCart(){
+
+    var riderNumber = jQuery(this).closest('.sj_rider_insurance_wrapper').attr('rider-insurance-number');
+    var priceUpdate = jQuery(this).val();
+    var radioText = jQuery(this).next().text();
+
+    jQuery('[data-rider-cart= '+ riderNumber +'] #insurance-option-second-id .insurance-option').text(radioText);
+}
+
+
 
 function getRandomRadioId (){
 
