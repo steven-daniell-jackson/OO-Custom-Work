@@ -1,41 +1,4 @@
-    function createRiderObjs(){
 
-
-        var tour = jQuery('#input_'+gf_form_id +'_73 :selected').text();
-        var tourDate = jQuery('#input_'+gf_form_id +'_150 :selected').text();
-        var riderObjs = [];
-
-        var tour = jQuery('#input_'+gf_form_id +'_73 :selected').text()
-        jQuery('#input_'+gf_form_id +'_73 :selected')
-        jQuery('.sj_rider_wrapper').each(function(){ 
-
-            var sharingCheckbox = jQuery(this).find('#choice_'+gf_form_id +'_79_1').is(':checked');
-            var roommateName = jQuery(this).find('#input_'+gf_form_id +'_91').val();
-            var riderRemarks = jQuery(this).find('#input_'+gf_form_id +'_152').val();
-            var riderID = jQuery(this).attr('data-rider');
-            var riderDetails = jQuery('[rider-details="'+riderID+'"]');
-
-            var rider = new Object();
-            rider.riderTour = tour;
-            rider.riderTourDate = tourDate;
-            rider.riderNumber = riderID;
-            rider.dataRiderType = jQuery(this).attr('data-rider-type');
-            rider.roomOccupancy = jQuery(this).find('#input_'+gf_form_id +'_78 :selected').text();
-            rider.bikeFirst = jQuery(this).find('#input_'+gf_form_id +'_77 :selected').text();
-            rider.bikeSecond = jQuery(this).find('#input_'+gf_form_id +'_151 :selected').text();
-
-            (riderRemarks != "") ? rider.riderRemarks = riderRemarks : '';
-            (roommateName != "") ? rider.roommateName = roommateName : '';
-            (sharingCheckbox) ? rider.sharing = jQuery(this).find('#label_'+gf_form_id +'_79_1').text() : '';
-        
-        riderObjs.push(rider); 
-
-        // console.log(postData);
-    });
-
-        return riderObjs;
-
-    }
 
     function add_rider_details(e) {
 
@@ -59,7 +22,7 @@ Object.keys(riderObjs).forEach(function(key) {
     // console.log(key, riderObjs[key]);
     // console.log(riderObjs[key]['riderNumber']);
 
-    console.log('riderObjs[key] ' + riderObjs[key]['riderNumber']);
+    // console.log('riderObjs[key] ' + riderObjs[key]['riderNumber']);
 
     jQuery('#field_'+gf_form_id+'_40').
     after(cloned_rider_details_wrapper.clone(true)
@@ -111,52 +74,6 @@ jQuery('[rider-details]:visible').hide().next().show();
 
 }
 
-function step3(){
-
-    var riderDetailsobj = riderDetailsObj();
-        jQuery('[rider-details]').hide();
-
-
-        Object.keys(riderDetailsobj).forEach(function(key) {
-        jQuery('#field_'+gf_form_id+'_54 .gsection_title').text('Step 3 - Insurance Details');
-        jQuery('#field_'+gf_form_id+'_40')
-        .after(sj_rider_insurance_wrapper.clone(true)
-        .append('<a href="#gform_'+gf_form_id+'" class="button sj_next" style="float:right;" onclick="step4()">Next Step</a>'))
-        .show(); 
-        // .attr('rider-details', riderObjs[key]['riderNumber'])
-        // .prepend('<h2 class="sj-rider-details-heading">Rider '+ riderObjs[key]['riderNumber'] + ' Passenger Details</h2>')
-        // .append('<a href="#gform_'+gf_form_id+'" class="button sj_back" onclick="prevRiderDetails()">Back</a>')
-        // .append('<a href="#gform_'+gf_form_id+'" class="button sj_next" style="float:right;" onclick="nextRiderDetails()">Next Rider</a>'))
-        // .attr('passenger', 'true')
-                
-});
-    // console.log('step3');
-    jQuery('#field_'+gf_form_id+'_40').hide();
-}
-
-function step4(){
-    jQuery('.sj_rider_insurance_wrapper ').hide();
-    jQuery('#field_'+gf_form_id+'_54 .gsection_title').text('Step 4 - Check and Confirm your booking');
-    jQuery('#field_'+gf_form_id+'_40')
-        .append('Placeholder')
-        .show();
-    console.log('step4');
-        // jQuery('[rider-details]').hide();
-        // jQuery('#field_'+gf_form_id+'_54 .gsection_title').text('Step 3 - Insurance Details');
-        // jQuery('#field_'+gf_form_id+'_40')
-        // .after(sj_rider_insurance_wrapper.clone(true)
-        // .append('<a href="#gform_'+gf_form_id+'" class="button sj_next" style="float:right;" onclick="nextRiderDetails()">Next Rider</a>'))
-        // .show(); 
-        // .attr('rider-details', riderObjs[key]['riderNumber'])
-        // .prepend('<h2 class="sj-rider-details-heading">Rider '+ riderObjs[key]['riderNumber'] + ' Passenger Details</h2>')
-        // .append('<a href="#gform_'+gf_form_id+'" class="button sj_back" onclick="prevRiderDetails()">Back</a>')
-        // .append('<a href="#gform_'+gf_form_id+'" class="button sj_next" style="float:right;" onclick="nextRiderDetails()">Next Rider</a>'))
-        // .attr('passenger', 'true')
-                
-    jQuery('#field_'+gf_form_id+'_40').hide();
-}
-
-
 
 
 
@@ -166,64 +83,7 @@ jQuery('[rider-details]:visible').hide().prev().show();
 
 }
 
-function riderDetailsObj(){
-    var tour = jQuery('#input_'+gf_form_id +'_73 :selected').text();
-    var tourDate = jQuery('#input_'+gf_form_id +'_150 :selected').text();
-    var postData = [];
 
-    var tour = jQuery('#input_'+gf_form_id +'_73 :selected').text()
-    jQuery('#input_'+gf_form_id +'_73 :selected')
-    jQuery('.sj_rider_details_wrapper').each(function(){ 
-
-        var sharingCheckbox = jQuery(this).find('#choice_'+gf_form_id +'_79_1').is(':checked');
-        var roommateName = jQuery(this).find('#input_'+gf_form_id +'_91').val();
-        var riderRemarks = jQuery(this).find('#input_'+gf_form_id +'_152').val();
-        var riderID = jQuery(this).attr('rider-details');
-        var riderDetails = jQuery('[rider-details="'+riderID+'"]');
-        var hasPassenger = jQuery(this).attr('passenger');
-
-        console.log(hasPassenger);
-
-        var rider = new Object();
-        rider.riderTour = tour;
-        rider.riderTourDate = tourDate;
-        rider.riderNumber = riderID;
-        rider.dataRiderType = jQuery(this).attr('data-rider-type');
-        rider.roomOccupancy = jQuery(this).find('#input_'+gf_form_id +'_78 :selected').text();
-        rider.bikeFirst = jQuery(this).find('#input_'+gf_form_id +'_77 :selected').text();
-        rider.bikeSecond = jQuery(this).find('#input_'+gf_form_id +'_151 :selected').text();
-
-        (riderRemarks != "") ? rider.riderRemarks = riderRemarks : '';
-        (roommateName != "") ? rider.roommateName = roommateName : '';
-        (sharingCheckbox) ? rider.sharing = jQuery(this).find('#label_'+gf_form_id +'_79_1').text() : '';
-
-        (hasPassenger) ? rider.Details = 'Rider ' + riderID + 'Passenger - Details' : rider.Details = 'Rider ' + riderID + '- Details';
-        (hasPassenger) ? rider.Passenger = hasPassenger : '';
-        rider.title =  jQuery(riderDetails).find('#input_'+gf_form_id +'_3 :selected').text();
-        rider.firstNames =  jQuery(riderDetails).find('#input_'+gf_form_id +'_1').val();
-        rider.familyName =  jQuery(riderDetails).find('#input_'+gf_form_id +'_169').val();
-        rider.familyNameTitle =  jQuery(riderDetails).find('#input_'+gf_form_id +'_159').val();
-        rider.dateOfBirth =  jQuery(riderDetails).find('#input_'+gf_form_id +'_5').val();
-        rider.nationality =  jQuery(riderDetails).find('#input_'+gf_form_id +'_35').val();
-        rider.passportNo =  jQuery(riderDetails).find('#input_'+gf_form_id +'_160').val();
-        rider.passportImage =  'temp: passportImage';
-        rider.drivesLicense  =  jQuery(riderDetails).find('#input_'+gf_form_id +'_159').val();
-        rider.driversLicenseImage =  'temp: driversLicenseImage';
-        rider.email =  jQuery(riderDetails).find('#input_'+gf_form_id +'_38').val();
-        rider.phone =  jQuery(riderDetails).find('#input_'+gf_form_id +'_70').val();
-        rider.address =  'temp: address';
-        rider.profession =  jQuery(riderDetails).find('#input_'+gf_form_id +'_162').val();
-        rider.ridingExperience =  jQuery(riderDetails).find('#input_'+gf_form_id +'_163').val();
-        rider.shirtSize =  jQuery(riderDetails).find('#input_'+gf_form_id +'_37 :selected').text();
-        rider.foodRequirements =   'temp: foodRequirements';
-        rider.favouriteBikes =  jQuery(riderDetails).find('#input_'+gf_form_id +'_164 :selected').text();
-
-        
-        postData.push(rider); 
-    });
-
-   return postData;
-}
 
 
 

@@ -260,8 +260,6 @@ function dropdown_check(e){
 
         if (roommateCheck == true) {
          if (!jQuery(data).find( " #field_"+gf_form_id+"_152" ).hasClass("sj_clicked")) {
-            // console.log(roommateCheck);
-
 
             if (jQuery(data + ' #input_'+gf_form_id+'_91' ).val() == "") {
              alert("Error: Room mate name is required");
