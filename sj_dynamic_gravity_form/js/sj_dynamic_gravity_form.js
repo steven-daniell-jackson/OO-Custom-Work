@@ -2,12 +2,18 @@ var gf_form_id = 15;
 var cloned_cart = '';
 var cloned_rider_details_wrapper = '';
 var sj_rider_insurance_wrapper = '';
+var sj_summary_booking_wrapper = '';
+var sj_rider_booking_wrapper = '';
+
 
 jQuery(document).ready(function() {
 
   cloned_add_rider_wrapper = jQuery( ".sj_add_rider_wrapper" ).clone();
   cloned_rider_details_wrapper = jQuery( ".sj_rider_details_wrapper" ).clone();
   sj_rider_insurance_wrapper  = jQuery( ".sj_rider_insurance_wrapper" ).clone();
+  sj_summary_booking_wrapper  = jQuery( ".summary-wrapper" ).clone();
+  sj_rider_booking_wrapper  = jQuery( ".summary-rider-wrapper" ).clone();
+  
   cloned_first_rider_wrapper = "";
   var cloned_bike_options_first = '';
   var cloned_bike_options_second = '';
@@ -227,6 +233,7 @@ else {
 
   jQuery( "#custom_html-2" ).hide();
   jQuery( ".sj_rider_insurance_wrapper" ).remove();
+  jQuery( ".sj_confirm_booking_wrapper" ).remove();
 }); // document ready
 
 

@@ -19,6 +19,7 @@ function sj_dynamic_gravity_form_plugin_enqueue_script() {
    wp_enqueue_script( 'sj_dynamic_gravity_form_custom_js_step3', plugins_url( 'js/step3.js', __FILE__ ) );
    wp_enqueue_script( 'sj_dynamic_gravity_form_custom_js_step4', plugins_url( 'js/step4.js', __FILE__ ) );
    wp_enqueue_script( 'sj_dynamic_gravity_form_custom_js_rider-objects', plugins_url( 'js/rider-objects.js', __FILE__ ) );
+   wp_enqueue_style( 'sj_dynamic_gravity_form_custom_css', plugins_url( 'css/sj_dynamic_gravity_form.css', __FILE__ ) );
    
 }
 
