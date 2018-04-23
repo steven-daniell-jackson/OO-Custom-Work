@@ -1,31 +1,38 @@
 function riderDetailsObj(){
     var tour = jQuery('#input_'+gf_form_id +'_73 :selected').text();
     var tourDate = jQuery('#input_'+gf_form_id +'_150 :selected').text();
+    var foodRequirementString = '';
     var postData = [];
 
     var tour = jQuery('#input_'+gf_form_id +'_73 :selected').text()
     jQuery('#input_'+gf_form_id +'_73 :selected')
     jQuery('.sj_rider_details_wrapper').each(function(){ 
 
-        var sharingCheckbox = jQuery(this).find('#choice_'+gf_form_id +'_79_1').is(':checked');
-        var roommateName = jQuery(this).find('#input_'+gf_form_id +'_91').val();
-        var riderRemarks = jQuery(this).find('#input_'+gf_form_id +'_152').val();
+        var foodRequirements = jQuery( '#input_'+gf_form_id +'_165' ).find( 'li' ).has( 'input[type=checkbox]:checked' );
+
+       foodRequirements.each(function(){ 
+        foodRequirementString += jQuery(this).text().trim() + ', ';
+       });
         var riderID = jQuery(this).attr('rider-details');
+        var sharingCheckbox = jQuery('[data-rider="'+riderID+'"]').find('#choice_'+gf_form_id +'_79_1').is(':checked');
+        var roommateName = jQuery('[data-rider="'+riderID+'"]').find('#input_'+gf_form_id +'_91').val();
+        var riderRemarks = jQuery('[data-rider="'+riderID+'"]').find('#input_'+gf_form_id +'_152').val();        
         var riderDetails = jQuery('[rider-details="'+riderID+'"]');
         var hasPassenger = jQuery(this).attr('passenger');
+
         var rider = new Object();
 
         rider.riderTour = tour;
         rider.riderTourDate = tourDate;
         rider.riderNumber = riderID;
-        rider.dataRiderType = jQuery(this).attr('data-rider-type');
-        rider.roomOccupancy = jQuery(this).find('#input_'+gf_form_id +'_78 :selected').text();
-        rider.bikeFirst = jQuery(this).find('#input_'+gf_form_id +'_77 :selected').text();
-        rider.bikeSecond = jQuery(this).find('#input_'+gf_form_id +'_151 :selected').text();
+        rider.dataRiderType = jQuery('[data-rider="'+riderID+'"]').attr('data-rider-type');
+        rider.roomOccupancy = jQuery('[data-rider="'+riderID+'"]').find('#input_'+gf_form_id +'_78 :selected').text();
+        rider.bikeFirst = jQuery('[data-rider="'+riderID+'"]').find('#input_'+gf_form_id +'_77 :selected').text();
+        rider.bikeSecond = jQuery('[data-rider="'+riderID+'"]').find('#input_'+gf_form_id +'_151 :selected').text();
 
         (riderRemarks != "") ? rider.riderRemarks = riderRemarks : '';
         (roommateName != "") ? rider.roommateName = roommateName : '';
-        (sharingCheckbox) ? rider.sharing = jQuery(this).find('#label_'+gf_form_id +'_79_1').text() : '';
+        (sharingCheckbox) ? rider.sharing = jQuery('[data-rider="'+riderID+'"]').find('#label_'+gf_form_id +'_79_1').text() : '';
 
         (hasPassenger) ? rider.Details = 'Rider ' + riderID + ' Passenger - Details' : rider.Details = 'Rider ' + riderID + '- Details';
         (hasPassenger) ? rider.passenger = hasPassenger : '';
@@ -41,11 +48,18 @@ function riderDetailsObj(){
         rider.driversLicenseImage =  'temp: driversLicenseImage';
         rider.email =  jQuery(riderDetails).find('#input_'+gf_form_id +'_38').val();
         rider.phone =  jQuery(riderDetails).find('#input_'+gf_form_id +'_70').val();
-        rider.address =  'temp: address';
+
+        rider.addressPhysical =  jQuery(riderDetails).find('#input_'+gf_form_id +'_18_1').val();
+        rider.addressCity =  jQuery(riderDetails).find('#input_'+gf_form_id +'_18_3').val();
+        rider.addressProvince =  jQuery(riderDetails).find('#input_'+gf_form_id +'_18_4').val();
+        rider.addressZipcode =  jQuery(riderDetails).find('#input_'+gf_form_id +'_18_5').val();
+        rider.addressCountry =  jQuery(riderDetails).find('#input_'+gf_form_id +'_18_6').val();
+
+
         rider.profession =  jQuery(riderDetails).find('#input_'+gf_form_id +'_162').val();
         rider.ridingExperience =  jQuery(riderDetails).find('#input_'+gf_form_id +'_163').val();
         rider.shirtSize =  jQuery(riderDetails).find('#input_'+gf_form_id +'_37 :selected').text();
-        rider.foodRequirements =   'temp: foodRequirements';
+        rider.foodRequirements =   foodRequirementString;
         rider.favouriteBikes =  jQuery(riderDetails).find('#input_'+gf_form_id +'_164 :selected').text();
 
         

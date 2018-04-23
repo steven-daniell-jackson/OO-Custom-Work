@@ -20,11 +20,16 @@ function step4(){
             // jQuery('#field_'+gf_form_id+'_40')
             // .find('.summary-wrapper').remove().end()
 
+            var fullAddress = riderDetailsobj[key]['addressPhysical'] + ' ' +
+            riderDetailsobj[key]['addressCity'] + ' ' +
+            riderDetailsobj[key]['addressProvince'] + ' ' +
+            riderDetailsobj[key]['addressZipcode'] + ' ' +
+            riderDetailsobj[key]['addressCountry'];
 
             jQuery('#field_'+gf_form_id+'_40')
             .after(sj_rider_booking_wrapper.clone(true)
                 .find('.summary-rider-name').text(riderDetailsobj[key]['title']+ ' ' +riderDetailsobj[key]['firstNames']).end()
-                .find('.summary-rider-address').text('Address Placeholder').end()
+                .find('.summary-rider-address').text(fullAddress).end()
                 .find('.summary-rider-birthdate').text(riderDetailsobj[key]['dateOfBirth']).end()
                 .find('.summary-rider-nationality').text(riderDetailsobj[key]['nationality']).end()
                 .find('.summary-rider-phone').text(riderDetailsobj[key]['phone']).end()
