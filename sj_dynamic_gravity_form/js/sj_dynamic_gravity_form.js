@@ -1,4 +1,4 @@
-var gf_form_id = 16;
+var gf_form_id = 20;
 var cloned_cart = '';
 var cloned_rider_details_wrapper = '';
 var sj_rider_insurance_wrapper = '';
@@ -29,6 +29,9 @@ jQuery(document).ready(function() {
 
   cloned_cart = jQuery( "#custom_html-2 .custom-html-widget" ).clone();
 jQuery('#input_'+gf_form_id+'_73').empty();
+jQuery('#field_'+gf_form_id+'_150').hide();
+jQuery('#field_'+gf_form_id+'_69').hide();
+jQuery('.sj_add_rider_wrapper').hide();
 setTours();
 
 
@@ -36,6 +39,11 @@ setTours();
   jQuery('#field_'+gf_form_id+'_60 ').append('<span class="sj-close" style="float:right; border-radius: 50%;padding: 4px 14px; border: 1px solid" onclick="deleteRider(1)">x</a>');
 
   jQuery( "#input_"+gf_form_id+"_73" ).change(function() {
+
+jQuery("#input_20_73 option").first().prop('disabled', true);
+jQuery('#field_'+gf_form_id+'_150').show();
+jQuery('.sj_add_rider_wrapper').show();
+
     jQuery(".cart-total-price").hide( );
     jQuery("#input_"+gf_form_id+"_150").empty();
     jQuery('#input_'+gf_form_id+'_77').empty().append(jQuery('<option>', { 
@@ -57,7 +65,7 @@ setTours();
 
 
     var dropdown_value = parseInt(jQuery( "select" ).val(), 0);
-    var response = jQuery.getJSON( '/karoo/wp-content/plugins/sj_dynamic_gravity_form/dynamic_acf_data/acf_data.json', function(response) {
+    var response = jQuery.getJSON( '/wp-content/plugins/sj_dynamic_gravity_form/dynamic_acf_data/acf_data.json', function(response) {
 
         jQuery.map(response, function(obj) {
 
@@ -245,7 +253,14 @@ else {
 }); // document ready
 
 function setTours(){
-  var response = jQuery.getJSON( '/karoo/wp-content/plugins/sj_dynamic_gravity_form/dynamic_acf_data/acf_data.json', function(response) {
+
+
+jQuery('#input_'+gf_form_id+'_73').append(jQuery('<option>', { 
+                value: "select-tour",
+                text : "Select Tour"
+            }));
+
+  var response = jQuery.getJSON( '/wp-content/plugins/sj_dynamic_gravity_form/dynamic_acf_data/acf_data.json', function(response) {
         jQuery.map(response, function(obj) {
 
 
