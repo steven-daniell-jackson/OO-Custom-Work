@@ -1,4 +1,4 @@
-var gf_form_id = 15;
+var gf_form_id = 16;
 var cloned_cart = '';
 var cloned_rider_details_wrapper = '';
 var sj_rider_insurance_wrapper = '';
@@ -21,13 +21,15 @@ jQuery(document).ready(function() {
   jQuery( ".sj_rider_details_wrapper " ).hide();
   jQuery( "#field_"+gf_form_id+"_40" ).hide();
   jQuery('#gform_wrapper_'+gf_form_id+' .gform_footer #gform_submit_button_'+gf_form_id+'').hide();
-  jQuery('.cart-total-price').hide()
+  jQuery('.cart-total-price').remove()
   
 
   jQuery('#custom_html-2 .custom-html-widget').attr('data-rider-cart', '1');
   jQuery('#custom_html-2 .custom-html-widget h4').text('Rider 1');
 
   cloned_cart = jQuery( "#custom_html-2 .custom-html-widget" ).clone();
+jQuery('#input_'+gf_form_id+'_73').empty();
+setTours();
 
 
   jQuery('#field_'+gf_form_id+'_60 h2').css('float', 'left');
@@ -45,6 +47,13 @@ jQuery(document).ready(function() {
         value: "Select Bike",
         text : "Select Bike"
     }));
+
+
+
+    // jQuery('#input_'+gf_form_id+'_150').append(jQuery('<option>', { 
+    //                 value: tour_dates.date,
+    //                 text : tour_dates.date 
+    //             }));
 
 
     var dropdown_value = parseInt(jQuery( "select" ).val(), 0);
@@ -108,7 +117,6 @@ if(obj.id === dropdown_value) {
     jQuery(".tour-name").text(obj.tour);
     jQuery(".date-name").text(obj.tourDates.date[1].date);
     jQuery(".cart-total-price").hide( );
-    jQuery("#custom_html-2").after( "<span class='cart-total-price' ></span>");
 
 
 
@@ -236,7 +244,20 @@ else {
   jQuery( ".sj_confirm_booking_wrapper" ).remove();
 }); // document ready
 
+function setTours(){
+  var response = jQuery.getJSON( '/karoo/wp-content/plugins/sj_dynamic_gravity_form/dynamic_acf_data/acf_data.json', function(response) {
+        jQuery.map(response, function(obj) {
 
+
+console.log(response);
+jQuery('#input_'+gf_form_id+'_73').append(jQuery('<option>', { 
+                value: obj.id,
+                text : obj.tour
+            }));
+        });
+      });  
+
+}
 
 console.log('SJ - Dynamic Gravity Form JS Active');
 

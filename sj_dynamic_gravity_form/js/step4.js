@@ -10,7 +10,7 @@ function step4(){
 
     console.log('step4');
  // console.log(JSON.stringify(riderDetailsobj));
-
+    var totalParticipants = 0;
 
 
  Object.keys(riderDetailsobj).forEach(function(key) {
@@ -26,6 +26,15 @@ function step4(){
             riderDetailsobj[key]['addressZipcode'] + ' ' +
             riderDetailsobj[key]['addressCountry'];
 
+            var bikeText = riderDetailsobj[key]['bikeSecond'];
+
+if (riderDetailsobj[key]['bikeSecond'] == 'Select Bike') {
+    bikeText = 'First Choice: '+ riderDetailsobj[key]['bikeFirst'];
+
+} else {
+    bikeText = 'First Choice: '+ riderDetailsobj[key]['bikeFirst'] + '<br> Second Choice' + riderDetailsobj[key]['bikeSecond'];
+}
+
             jQuery('#field_'+gf_form_id+'_40')
             .after(sj_rider_booking_wrapper.clone(true)
                 .find('.summary-rider-name').text(riderDetailsobj[key]['title']+ ' ' +riderDetailsobj[key]['firstNames']).end()
@@ -34,7 +43,7 @@ function step4(){
                 .find('.summary-rider-nationality').text(riderDetailsobj[key]['nationality']).end()
                 .find('.summary-rider-phone').text(riderDetailsobj[key]['phone']).end()
                 .find('.summary-rider-email').text(riderDetailsobj[key]['email']).end()
-                .find('.summary-rider-bikechoice').text('First Choice: '+ riderDetailsobj[key]['bikeFirst'] + ' Second Choice' + riderDetailsobj[key]['bikeSecond']).end()
+                .find('.summary-rider-bikechoice').html(bikeText).end()
                 .find('.summary-rider-bonus').text('bonus - Needed?').end()
                 .find('.summary-rider-measurements').text(riderDetailsobj[key]['shirtSize']).end()
                 .find('.summary-rider-roomtype').text(riderDetailsobj[key]['roomOccupancy']).end()
@@ -43,6 +52,8 @@ function step4(){
 
 
         // console.log(riderDetailsobj[key]);
+
+totalParticipants += 1;
 
     });
 
@@ -54,8 +65,16 @@ function step4(){
  .after(sj_summary_booking_wrapper.clone(true)
    .find('.summary-tour').text(riderDetailsobj[0]['riderTour']).end()
    .find('.summary-tour-date').text(riderDetailsobj[0]['riderTourDate']).end()
-   .find('.summary-participants').text('Participants Placeholder').end()
-   .find('.summary-date-of-booking').text("Today's Date Placeholder").end());
+   .find('.summary-participants').text(totalParticipants).end()
+   .find('.summary-date-of-booking').text(currentDate()).end());
 
  jQuery('#field_'+gf_form_id+'_40').hide();
+
+jQuery('#gform_submit_button_'+gf_form_id).show();
+
+}
+
+
+function currentDate() {
+    return new Date(jQuery.now());
 }

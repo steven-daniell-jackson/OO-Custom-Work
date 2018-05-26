@@ -1,9 +1,9 @@
 <?php 
 
-add_filter( 'gform_pre_render_15', 'sj_dynamic_gravity_form_start' );
-add_filter( 'gform_pre_validation_15', 'sj_dynamic_gravity_form_start' );
-add_filter( 'gform_pre_submission_filter_15', 'sj_dynamic_gravity_form_start' );
-add_filter( 'gform_admin_pre_render_15', 'sj_dynamic_gravity_form_start' );
+add_filter( 'gform_pre_render_16', 'sj_dynamic_gravity_form_start' );
+add_filter( 'gform_pre_validation_16', 'sj_dynamic_gravity_form_start' );
+add_filter( 'gform_pre_submission_filter_16', 'sj_dynamic_gravity_form_start' );
+add_filter( 'gform_admin_pre_render_16', 'sj_dynamic_gravity_form_start' );
 
 function sj_dynamic_gravity_form_start( $form ) {
 
@@ -144,6 +144,16 @@ function sj_create_booking_form_json(){
 
 // print_r($choices);
 
+// print_r($choices);
+
+foreach ($choices as $key => $value) {
+   // print_r( sizeof($choices[$key]['tourDates']['date']));
+if (sizeof($choices[$key]['tourDates']['date']) == 1 ) {
+    array_splice($choices, $key);
+}
+   
+}
+// print_r($choices);
    sj_write_json_file($choices);
 
 }

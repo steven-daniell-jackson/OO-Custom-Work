@@ -13,12 +13,15 @@ function riderDetailsObj(){
        foodRequirements.each(function(){ 
         foodRequirementString += jQuery(this).text().trim() + ', ';
        });
+
+
         var riderID = jQuery(this).attr('rider-details');
         var sharingCheckbox = jQuery('[data-rider="'+riderID+'"]').find('#choice_'+gf_form_id +'_79_1').is(':checked');
         var roommateName = jQuery('[data-rider="'+riderID+'"]').find('#input_'+gf_form_id +'_91').val();
         var riderRemarks = jQuery('[data-rider="'+riderID+'"]').find('#input_'+gf_form_id +'_152').val();        
         var riderDetails = jQuery('[rider-details="'+riderID+'"]');
         var hasPassenger = jQuery(this).attr('passenger');
+        var dateOfBirth = jQuery('#input_16_5_2').val() + '/' + jQuery('#input_16_5_1').val() + '/' + jQuery('#input_16_5_3').val() ;
 
         var rider = new Object();
 
@@ -28,7 +31,9 @@ function riderDetailsObj(){
         rider.dataRiderType = jQuery('[data-rider="'+riderID+'"]').attr('data-rider-type');
         rider.roomOccupancy = jQuery('[data-rider="'+riderID+'"]').find('#input_'+gf_form_id +'_78 :selected').text();
         rider.bikeFirst = jQuery('[data-rider="'+riderID+'"]').find('#input_'+gf_form_id +'_77 :selected').text();
+        rider.bikeFirstPrice = jQuery('[data-rider="'+riderID+'"]').find('#input_'+gf_form_id +'_77 :selected').val();
         rider.bikeSecond = jQuery('[data-rider="'+riderID+'"]').find('#input_'+gf_form_id +'_151 :selected').text();
+        rider.bikeSecondPrice = jQuery('[data-rider="'+riderID+'"]').find('#input_'+gf_form_id +'_151 :selected').val();
 
         (riderRemarks != "") ? rider.riderRemarks = riderRemarks : '';
         (roommateName != "") ? rider.roommateName = roommateName : '';
@@ -40,7 +45,7 @@ function riderDetailsObj(){
         rider.firstNames =  jQuery(riderDetails).find('#input_'+gf_form_id +'_1').val();
         rider.familyName =  jQuery(riderDetails).find('#input_'+gf_form_id +'_169').val();
         rider.familyNameTitle =  jQuery(riderDetails).find('#input_'+gf_form_id +'_159').val();
-        rider.dateOfBirth =  jQuery(riderDetails).find('#input_'+gf_form_id +'_5').val();
+        rider.dateOfBirth =  dateOfBirth;
         rider.nationality =  jQuery(riderDetails).find('#input_'+gf_form_id +'_35').val();
         rider.passportNo =  jQuery(riderDetails).find('#input_'+gf_form_id +'_160').val();
         rider.passportImage =  'temp: passportImage';

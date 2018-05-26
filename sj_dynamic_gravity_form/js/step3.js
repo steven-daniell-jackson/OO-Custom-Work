@@ -44,10 +44,16 @@ function step3(){
     var reverseRiders = jQuery(".sj_rider_insurance_wrapper");
     jQuery('#field_'+gf_form_id+'_40').after(reverseRiders.get().reverse());
     // console.log('step3');
-    jQuery('.sj_rider_insurance_wrapper').last().append('<a href="#gform_'+gf_form_id+'" class="button sj_next" style="float:right;" onclick="step4()">Next Rider</a>').show();
+    jQuery('.sj_rider_insurance_wrapper').last()
+    .append('<a href="#gform_'+gf_form_id+'" class="button sj_back" onclick="insurancePrevStep()">Back</a>')
+    .append('<a href="#gform_'+gf_form_id+'" class="button sj_next" style="float:right;" onclick="step4()">Next Step</a>').show();
     jQuery('#field_'+gf_form_id+'_40').hide();
 }
 
+function insurancePrevStep(){
+jQuery('.sj_rider_insurance_wrapper').remove();
+jQuery('[rider-details="1"]').show();
+}
 
 function uniqueCheckboxID(){
     jQuery(".rider-bike-insurance").each(function(){

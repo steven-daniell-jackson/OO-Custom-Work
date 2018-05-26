@@ -54,7 +54,7 @@ jQuery('#field_'+gf_form_id+'_40').after(reverseRiders.get().reverse());
 jQuery('#field_'+gf_form_id+'_73').hide();
 jQuery('#field_'+gf_form_id+'_150').hide();
 
-jQuery('#field_'+gf_form_id+'_54 .gsection_title').text('Step 2 - Rider Details');
+jQuery('#field_'+gf_form_id+'_54 .gsection_title').text('Step 2 - Enter participant information');
 jQuery('#field_'+gf_form_id+'_54 .gsection_description').text('');
 
 jQuery('[rider-details]').hide();

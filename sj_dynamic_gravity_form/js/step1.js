@@ -56,7 +56,8 @@ function total_price_update(e){
     priceChange = parseInt(priceChange);
 
     updatePrice = e *priceChange;
-    jQuery(".cart-total-price").text("Total Price: R " + updatePrice).show();
+
+    jQuery("#custom_html-2").append("<span class='cart-total-price'>Total Price: R " + updatePrice + "</span>").show();
 
 }
 
