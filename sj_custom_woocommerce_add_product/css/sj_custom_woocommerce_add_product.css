@@ -1,0 +1,54 @@
+.vendor.post-new-php #poststuff {display: none;}
+.vendor.post-new-php .wp-heading-inline {display: none;}
+
+.left {
+float: left;
+}
+
+.sj-form-container {
+width: 70%;
+padding: 0 20px;
+}
+
+input.sj-input-full {
+	width: 100%;
+}
+
+textarea {
+    height: 150px;
+    width: 100%;
+}
+
+/*.media-menu-item {display: none}*/
+
+span.sj-radio-button {
+    width: 33%;
+    display: -webkit-inline-box;
+}
+
+span.sj-radio-button.Uncategorized {
+	display: none;
+}
+
+#sj-add-product-form {margin: 20px 0;}
+.categories-radio {padding: 20px;}
+span.error {color: red; padding: 20px 0px; font-size: 15px;}
+
+
+.sj-requirements-container {width: 25%}
+.sj-block {background-color: #fff;  border: 1px solid #000; margin: 20px 30px;}
+.sj-block-header {font-size: 18px;border-bottom: 1px solid #000; padding: 20px;}
+.sj-block-content {padding: 20px;}
+
+
+#upload_image_button {background-color: #e2c663;color: #fff;}
+#upload_model_release_button {background-color: #e2c663;color: #fff;}
+#upload_property_release_button {background-color: #e2c663;color: #fff;}
+#sj-add-product-form input[type="submit"] {background-color: #0086b5;color: #fff;padding: 7px 25px;}
+
+.license-upload { display: -webkit-box; }
+.sj-half {width: 50%;}
+
+.downloads-block {    display: flex; align-items: center; padding: 10px 0;}
+.downloads-block:first-child span { padding-right: 32px;}
+.downloads-block:last-child span { padding-right: 20px;}

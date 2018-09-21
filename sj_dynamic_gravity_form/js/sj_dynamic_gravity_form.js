@@ -1,4 +1,5 @@
 var gf_form_id = 20;
+var url = '/wp-content/plugins/sj_dynamic_gravity_form/dynamic_acf_data/acf_data.json';
 var cloned_cart = '';
 var cloned_rider_details_wrapper = '';
 var sj_rider_insurance_wrapper = '';
@@ -65,7 +66,7 @@ jQuery('.sj_add_rider_wrapper').show();
 
 
     var dropdown_value = parseInt(jQuery( "select" ).val(), 0);
-    var response = jQuery.getJSON( '/wp-content/plugins/sj_dynamic_gravity_form/dynamic_acf_data/acf_data.json', function(response) {
+    var response = jQuery.getJSON(url, function(response) {
 
         jQuery.map(response, function(obj) {
 
@@ -239,7 +240,7 @@ else {
 
 });
 
-  jQuery( "#field_"+gf_form_id+"_62" ).click(function() {
+  jQuery( "#input_"+gf_form_id+"_62 li" ).click(function() {
 
 
     jQuery( '[data-rider="1"] #field_'+gf_form_id+'_91').hide();
@@ -260,7 +261,7 @@ jQuery('#input_'+gf_form_id+'_73').append(jQuery('<option>', {
                 text : "Select Tour"
             }));
 
-  var response = jQuery.getJSON( '/wp-content/plugins/sj_dynamic_gravity_form/dynamic_acf_data/acf_data.json', function(response) {
+  var response = jQuery.getJSON( url, function(response) {
         jQuery.map(response, function(obj) {
 
 
