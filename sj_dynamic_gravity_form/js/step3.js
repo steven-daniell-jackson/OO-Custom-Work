@@ -118,22 +118,22 @@ function updateCart(){
     var checkboxLength = jQuery(this).closest('.gfield_checkbox').find(':checked').length;
 
 
-    if (jQuery(this).is(':checked') == 'false') {
-        jQuery(this).closest('.gfield_checkbox').find('input').prop('checked',false);
-        jQuery(this).prop('checked',false);
-        jQuery('[data-rider-cart= '+ riderNumber +'] #insurance-option-first-id .insurance-option').text(checkboxText);
-    } 
+    // if (jQuery(this).is(':checked') == 'false') {
+    //     jQuery(this).closest('.gfield_checkbox').find('input').prop('checked',false);
+    //     jQuery(this).prop('checked',false);
+    //     jQuery('[data-rider-cart= '+ riderNumber +'] #insurance-option-first-id .insurance-option').text(checkboxText);
+    // } 
 
-    if (checkboxLength <= 0) {
-        // jQuery('[data-rider-cart= '+ riderNumber +'] #insurance-option-second-id .insurance-option').text('');
-        checkboxText = '';
-        console.log('here');
-    }
-     else if (checkboxLength >= 2) {
-        jQuery(this).closest('.gfield_checkbox').find(':checked').prop('checked',false);
-        jQuery(this).prop('checked',true);
+    // if (checkboxLength <= 0) {
+    //     // jQuery('[data-rider-cart= '+ riderNumber +'] #insurance-option-second-id .insurance-option').text('');
+    //     checkboxText = '';
+    //     console.log('here');
+    // }
+    //  else if (checkboxLength >= 2) {
+    //     jQuery(this).closest('.gfield_checkbox').find(':checked').prop('checked',false);
+    //     jQuery(this).prop('checked',true);
         
-    }
+    // }
     
   
 jQuery('[data-rider-cart= '+ riderNumber +'] #insurance-option-first-id .insurance-option').text(checkboxText);

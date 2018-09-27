@@ -14,3 +14,11 @@
 	width: 33%;
 	float: left;
 }
+
+.add-border-red {
+	border-color: red !important;
+}
+
+#room_row {
+	border: none !important;
+}
